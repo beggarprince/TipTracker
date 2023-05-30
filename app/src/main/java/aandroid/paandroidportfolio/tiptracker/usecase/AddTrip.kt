@@ -1,5 +1,8 @@
-package aandroid.paandroidportfolio.tiptracker
+package aandroid.paandroidportfolio.tiptracker.usecase
 
+import aandroid.paandroidportfolio.tiptracker.MainViewModel
+import aandroid.paandroidportfolio.tiptracker.R
+import aandroid.paandroidportfolio.tiptracker.Trip
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,7 +25,7 @@ class AddTrip : Fragment() {
         val debugButton = rootview.findViewById<Button>(R.id.addTripDebug)
 
         debugButton.setOnClickListener{
-            sharedViewModel.readTripVM(Trip(10,10,",",""))
+            sharedViewModel.addTrip(Trip(10,10,",",""))
             sharedViewModel.scopeTest = "TEST HATH SUCCEEDED"
         }
 

@@ -2,14 +2,13 @@ package aandroid.paandroidportfolio.tiptracker
 
 import aandroid.paandroidportfolio.tiptracker.Home.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.Mileage.MileageTracker
+import aandroid.paandroidportfolio.tiptracker.usecase.AddTrip
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.mainFragment, logFragment)
                 .commit()
         }
+
 
     }
     fun readTrip(trip: Trip){

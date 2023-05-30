@@ -1,0 +1,48 @@
+package aandroid.paandroidportfolio.tiptracker
+
+import aandroid.paandroidportfolio.tiptracker.Home.HomeFragment
+import aandroid.paandroidportfolio.tiptracker.Mileage.MileageTracker
+import android.content.ContentValues.TAG
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import kotlin.math.log
+
+class MainActivity : AppCompatActivity() {
+
+    val sharedvm : MainViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val mileageSwitch = findViewById<Button>(R.id.mileageFragButton)
+        mileageSwitch.setOnClickListener {
+            val mileageFragment = MileageTracker()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, mileageFragment)
+                .commit()
+        }
+        val tipSwitch = findViewById<Button>(R.id.tipFragButton)
+        tipSwitch.setOnClickListener {
+            val tipFragment = HomeFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, tipFragment)
+                .commit()
+        }
+
+        val logTrip = findViewById<Button>(R.id.settingFragButton)
+        logTrip.setOnClickListener{
+            val logFragment = AddTrip()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, logFragment)
+                .commit()
+        }
+
+    }
+    fun readTrip(trip: Trip){
+        Log.d(TAG,"Congrats you have " +trip.money.toString()+" cash money")
+    }
+}

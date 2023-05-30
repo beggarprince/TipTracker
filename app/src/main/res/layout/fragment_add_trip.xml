@@ -11,8 +11,41 @@
       android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is where you would add a trip" />
+        android:layout_height="wrap_content"
+        android:text="This is where you would add a trip"
+        android:id="@+id/add_trip_message"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount Earned"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_trip_message"
+        android:id="@+id/et_amount_earned"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Miles Driven"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_amount_earned"
+        android:id="@+id/et_miles_driven"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hours"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_miles_driven"
+        android:id="@+id/et_hours_worked"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Add Trip"
+        android:id="@+id/btn_add_trip"
+      />
 
       <Button
           android:layout_width="wrap_content"

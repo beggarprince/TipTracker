@@ -10,6 +10,5 @@ data class Trip(
     val money: Int,
     var mileage: Int,
     var date: String,
-    var type: String
+    var hours: Int
 )
-//Tips, mileage, date, and type of service (doordash, domino's, instacart, uber)

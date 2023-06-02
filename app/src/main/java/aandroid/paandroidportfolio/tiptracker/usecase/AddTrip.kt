@@ -31,7 +31,7 @@ class AddTrip : Fragment() {
         val mileageAmount = rootview.findViewById<EditText>(R.id.et_miles_driven)
 
         debugButton.setOnClickListener {
-            sharedViewModel.addTrip(Trip(10, 10, ",", ""))
+            sharedViewModel.addTrip(Trip(10, 10, ",", 1))
         }
 
         addTripBtn.setOnClickListener {
@@ -41,7 +41,7 @@ class AddTrip : Fragment() {
                     editAmount.text.toString().toInt(),
                     mileageAmount.text.toString().toInt(),
                     "",
-                    ""
+                    1
                 )
             )
         }

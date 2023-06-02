@@ -39,9 +39,7 @@ class HomeFragment : Fragment() {
 
         val homeFragmentButton = rootview.findViewById<Button>(R.id.homeButton)
         homeFragmentButton.setOnClickListener {
-            Log.d(TAG, "HOME FRAGMENT BUTTON CLICKED")
-            sharedViewModel.tripAdapter
-                .addTrip(Trip(10, 10, "", ""))
+
         }
 
         return rootview

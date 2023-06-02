@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Home.HomeFragment">
+    tools:context=".usecase.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/homefragtext"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_weeklyRuns"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="Weekly runs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,9 +31,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:paddingVertical="8dp"
             app:layout_constraintBottom_toTopOf="@id/homeButton"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tv_weeklyRuns" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

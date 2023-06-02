@@ -32,14 +32,13 @@ class AddTrip : Fragment() {
 
         debugButton.setOnClickListener {
             sharedViewModel.addTrip(Trip(10, 10, ",", ""))
-            sharedViewModel.scopeTest = "TEST HATH SUCCEEDED"
         }
 
         addTripBtn.setOnClickListener {
             //TODO add checks to see if the inputs make sense
             sharedViewModel.tripAdapter.addTrip(
                 Trip(
-                    editAmount.text.toString().toInt(), //This is the single dumbest fucking thing I've done in kotlin
+                    editAmount.text.toString().toInt(),
                     mileageAmount.text.toString().toInt(),
                     "",
                     ""

@@ -1,5 +1,7 @@
 package aandroid.paandroidportfolio.tiptracker
 
+import aandroid.paandroidportfolio.tiptracker.Room.TripDao
+import aandroid.paandroidportfolio.tiptracker.Room.TripDatabase
 import aandroid.paandroidportfolio.tiptracker.usecase.StatFragment
 import aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.usecase.AddTrip
@@ -9,14 +11,33 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.room.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     val sharedvm: MainViewModel by viewModels()
+    var dao: TripDao? =null
+    var database: TripDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Room Database
+        CoroutineScope(Dispatchers.IO).launch {
+            database = Room.databaseBuilder(
+                applicationContext,
+                TripDatabase::class.java, "my-database"
+            ).build()
+            dao = database?.tripDao()
+            Log.d(TAG, "Hello from the co routine")
+            sharedvm.setDaoReferenceForViewmodel(dao)
+            sharedvm.getInitialList()
+        }
+
+        //Buttons
         val statSwitch = findViewById<Button>(R.id.mileageFragButton)
         statSwitch.setOnClickListener {
             val statFragment = StatFragment()
@@ -31,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.mainFragment, tipFragment)
                 .commit()
         }
-
         val logTrip = findViewById<Button>(R.id.settingFragButton)
         logTrip.setOnClickListener {
             val logFragment = AddTrip()
@@ -40,10 +60,20 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-
     }
 
-    fun readTrip(trip: Trip) {
-        Log.d(TAG, "Congrats you have " + trip.money.toString() + " cash money")
+    private fun daoTest() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao?.getAll()
+            if (dao != null) {
+                Log.d(TAG,"DAO IS NOT NULL")
+            }else Log.d(TAG,"DAO IS NULL")
+        }
     }
+    public fun addToRoom(trip: Trip){
+        CoroutineScope(Dispatchers.IO).launch {
+            dao?.insert(trip)
+        }
+    }
+
 }

@@ -44,6 +44,7 @@ class AddTrip : Fragment() {
                     1
                 )
             )
+
         }
 
         return rootview

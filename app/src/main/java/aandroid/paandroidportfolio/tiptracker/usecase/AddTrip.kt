@@ -1,6 +1,7 @@
 package aandroid.paandroidportfolio.tiptracker.usecase
 
-import aandroid.paandroidportfolio.tiptracker.MainViewModel
+import aandroid.paandroidportfolio.tiptracker.MainActivity
+import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.Trip
 import android.os.Bundle
@@ -11,11 +12,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
-import kotlin.String
 
 class AddTrip : Fragment() {
 
-    private val sharedViewModel: MainViewModel by activityViewModels()
+    private val sharedViewModel: ViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +36,12 @@ class AddTrip : Fragment() {
 
         addTripBtn.setOnClickListener {
             //TODO add checks to see if the inputs make sense
-            sharedViewModel.tripAdapter.addTrip(
+            sharedViewModel.addTrip(
                 Trip(
                     editAmount.text.toString().toInt(),
                     mileageAmount.text.toString().toInt(),
                     "",
-                    1
-                )
-            )
-
+                    1))
         }
 
         return rootview

@@ -1,7 +1,5 @@
 package aandroid.paandroidportfolio.tiptracker
 
-import aandroid.paandroidportfolio.tiptracker.Room.TripDao
-import aandroid.paandroidportfolio.tiptracker.Room.TripDatabase
 import aandroid.paandroidportfolio.tiptracker.usecase.StatFragment
 import aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.usecase.AddTrip
@@ -11,19 +9,35 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.room.Room
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
-    val sharedvm: MainViewModel by viewModels()
+
+    private var isRoomSetupComplete = false
+    private val lock = Object()
+    val sharedvm: ViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharedvm.roomSetup(this)
+        synchronized(lock) {
+            sharedvm.roomSetup(this)
+            isRoomSetupComplete = true
+        }
+        synchronized(lock)
+        {
+            while(!isRoomSetupComplete){
+                try{
+                    lock.wait()
+                }catch (e: InterruptedException){e.printStackTrace()}
+            }
+
+            val tipFragment = HomeFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, tipFragment)
+                .commit()
+        }
 
         //Buttons
         val statSwitch = findViewById<Button>(R.id.mileageFragButton)

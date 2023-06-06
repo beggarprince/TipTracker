@@ -1,11 +1,9 @@
 package aandroid.paandroidportfolio.tiptracker.usecase
 
-import aandroid.paandroidportfolio.tiptracker.MainViewModel
+import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
-import aandroid.paandroidportfolio.tiptracker.Trip
-import android.content.ContentValues.TAG
+import aandroid.paandroidportfolio.tiptracker.TripAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +20,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private val sharedViewModel: MainViewModel by activityViewModels()
+    private val sharedViewModel: ViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +30,11 @@ class HomeFragment : Fragment() {
             R.layout.fragment_home,
             container, false
         )
+
         val recView = rootview
             .findViewById<RecyclerView>(R.id.homeRecView)
-        recView.adapter = sharedViewModel.tripAdapter
+        val adapter = TripAdapter(sharedViewModel.tripList)
+        recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(this.context)
 
         val homeFragmentButton = rootview.findViewById<Button>(R.id.homeButton)
@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
 
         }
 
+        //adapter.poop()
         return rootview
     }
 

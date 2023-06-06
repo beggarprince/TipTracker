@@ -11,26 +11,28 @@
         android:text="THIS IS A TRIP"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/money_earned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Money earned"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_money_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="$CASH_MONEY"/>
+            android:text="$CASH_MONEY"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/miles_driven"
@@ -38,15 +40,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Miles driven"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:text="MILES"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/hours_worked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hours Worked"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOURS"
+            android:textSize="14sp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/btn_delete_trip"
             />
 
     </LinearLayout>

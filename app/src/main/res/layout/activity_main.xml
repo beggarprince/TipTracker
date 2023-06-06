@@ -41,7 +41,6 @@
         app:layout_constraintBottom_toTopOf="@+id/mileageFragButton"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/mainFragment"
-        android:name="aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment"
         >
 
     </androidx.fragment.app.FragmentContainerView>

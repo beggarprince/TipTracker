@@ -15,8 +15,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
-    fun deleteItem(trip: Trip){
-        //val trip = tripList[position]
+    private fun deleteItem(trip: Trip){
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
     class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -46,6 +45,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
             deleteButton.setOnClickListener{
                 deleteItem(currentTrip)
                 tripList.remove(currentTrip)
+                Log.d(TAG,"Deleted Trip")
                 notifyDataSetChanged()
             }
         }

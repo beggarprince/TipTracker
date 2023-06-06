@@ -13,6 +13,7 @@ import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ViewModel: ViewModel(), RoomDelete {
 
@@ -21,9 +22,8 @@ class ViewModel: ViewModel(), RoomDelete {
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
 
-    fun roomSetup(applicationContext: Context){        //Room Database
-        CoroutineScope(Dispatchers.IO).launch {
-
+    suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
+    {        //Room Database
             database = Room.databaseBuilder(
                 applicationContext,
                 TripDatabase::class.java, "my-database"
@@ -31,10 +31,7 @@ class ViewModel: ViewModel(), RoomDelete {
             daoReference = database?.tripDao()
             Log.d(TAG, "Room  Init  Setup")
             tripList = getInitialList()
-
             Log.d(TAG,"Room Setup Finished")
-        }
-
     }
 
     fun addTrip(trip: Trip) {
@@ -58,6 +55,7 @@ class ViewModel: ViewModel(), RoomDelete {
     {
          CoroutineScope(Dispatchers.IO).launch{
              daoReference?.delete(trip)
+             Log.d(TAG,"Deleting Trip")
          }
     }
 

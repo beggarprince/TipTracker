@@ -9,31 +9,25 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
-
-    private var isRoomSetupComplete = false
     private val lock = Object()
     val sharedvm: ViewModel by viewModels()
+    private val scope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //RoomDB must be setup before we fill the recycler view with it's values
-        synchronized(lock) {
-            sharedvm.roomSetup(this)
-            isRoomSetupComplete = true
-        }
-        synchronized(lock)
-        {
-            while(!isRoomSetupComplete){
-                try{
-                    lock.wait()
-                }catch (e: InterruptedException){e.printStackTrace()}
-            }
+        scope.launch {
+            sharedvm.roomSetup(this@MainActivity)
 
+            Log.d(TAG, "Home Fragment Initializing")
             val tipFragment = HomeFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.mainFragment, tipFragment)

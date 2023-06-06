@@ -1,5 +1,6 @@
 package aandroid.paandroidportfolio.tiptracker
 
+import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,13 +11,14 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 
-class TripAdapter(private val tripList: MutableList<Trip>) :
+class TripAdapter(private val tripList: MutableList<Trip>,
+                  private val deleteTripListener : RoomDelete) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
-    interface OnDeleteClickListener {
-        fun onDeleteClick(trip: Trip)
+    fun deleteItem(trip: Trip){
+        //val trip = tripList[position]
+        deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
-
     class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
@@ -42,20 +44,11 @@ class TripAdapter(private val tripList: MutableList<Trip>) :
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{
-
+                deleteItem(currentTrip)
+                tripList.remove(currentTrip)
+                notifyDataSetChanged()
             }
         }
-    }
-
-    fun addTrip(trip: Trip){
-        tripList.add(trip)
-        notifyItemInserted(tripList.size -1)
-    }
-
-    fun poop(){
-        notifyDataSetChanged()
-
-        Log.d(TAG,"poop i pooped my pants")
     }
 
 }

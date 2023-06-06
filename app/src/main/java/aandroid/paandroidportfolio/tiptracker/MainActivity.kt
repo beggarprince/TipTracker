@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //RoomDB must be setup before we fill the recycler view with it's values
         synchronized(lock) {
             sharedvm.roomSetup(this)
             isRoomSetupComplete = true

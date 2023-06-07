@@ -12,5 +12,5 @@ data class Trip(
     var hours: Int,
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int?=null,
+    val id: Int?=null
 )

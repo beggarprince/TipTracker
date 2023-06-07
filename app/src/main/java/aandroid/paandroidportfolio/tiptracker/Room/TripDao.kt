@@ -9,11 +9,21 @@ import androidx.room.Query
 @Dao
 interface TripDao {
     @Insert
-    fun insert(trip: Trip)
+    fun insert(trip: Trip): Long
 
     @Delete
-    fun delete(trip: Trip)
+    fun delete(trip: Trip) : Int
+
+    @Query("DELETE FROM TripDatabase WHERE id = :id")
+    fun deleteById(id: Int)
+
+
+    @Query("DELETE FROM TripDatabase")
+    fun deleteAll()
 
     @Query("SELECT * FROM TripDatabase")
     fun getAll(): List<Trip>
+
+    @Query("SELECT * FROM TripDatabase WHERE id = :id")
+    fun getTrip(id: Int): Trip
 }

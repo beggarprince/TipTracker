@@ -15,49 +15,55 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ViewModel: ViewModel(), RoomDelete {
 
-    var tripList :MutableList<Trip> = mutableListOf<Trip>()
+class ViewModel : ViewModel(), RoomDelete {
+
+    var tripList: MutableList<Trip> = mutableListOf<Trip>()
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
+    var date: String =""
 
     suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
-            database = Room.databaseBuilder(
-                applicationContext,
-                TripDatabase::class.java, "my-database"
-            ).build()
-            daoReference = database?.tripDao()
-            Log.d(TAG, "Room  Init  Setup")
-            tripList = getInitialList()
-            Log.d(TAG,"Room Setup Finished")
+        database = Room.databaseBuilder(
+            applicationContext,
+            TripDatabase::class.java, "my-database"
+        ).build()
+        daoReference = database?.tripDao()
+        Log.d(TAG, "Room  Init  Setup")
+        tripList = getInitialList()
+        Log.d(TAG, "Room Setup Finished")
     }
 
     fun addTrip(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
+            //manually set the trip id
+            val tripwithid = trip.copy(id = daoReference?.insert(trip)?.toInt())
+            tripList.add(tripwithid)
 
-            tripList.add(trip)
+        }
 
-            //dao check idk man
-        if(daoReference != null){daoReference?.insert(trip); Log.d(TAG,"INSERTING INTO DB")}
-            else Log.d(TAG,"dao reference is null")
+    }
+
+    private fun getInitialList(): MutableList<Trip> {
+        val trips = daoReference?.getAll() as MutableList<Trip>
+        return trips
+    }
+
+    override fun deleteTripFromRoomDatabase(trip: Trip) {
+        CoroutineScope(Dispatchers.IO).launch {
+            //daoReference?.delete(trip)
+            // daoReference?.deleteAll()
+            val trip = trip.id?.let { daoReference?.getTrip(it) }
+            if (trip != null) {
+                daoReference?.delete(trip)
+            } else Log.d(TAG, "TRIP ID IS NULL")
+
+            Log.d(TAG, "Deleting Trip")
         }
     }
 
-    private fun getInitialList(): MutableList<Trip>{
-        val trips = daoReference?.getAll() as MutableList<Trip>
-
-        Log.d(TAG,"middle")
-        return trips
-    }
-     override fun deleteTripFromRoomDatabase(trip: Trip)
-    {
-         CoroutineScope(Dispatchers.IO).launch{
-             daoReference?.delete(trip)
-             Log.d(TAG,"Deleting Trip")
-         }
-    }
 
 
 }

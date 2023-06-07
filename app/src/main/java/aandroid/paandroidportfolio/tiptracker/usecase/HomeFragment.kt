@@ -12,6 +12,9 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -31,6 +34,7 @@ class HomeFragment : Fragment() {
             container, false
         )
 
+
         val recView = rootview
             .findViewById<RecyclerView>(R.id.homeRecView)
         val adapter = TripAdapter(sharedViewModel.tripList,
@@ -43,7 +47,6 @@ class HomeFragment : Fragment() {
 
         }
 
-        //adapter.poop()
         return rootview
     }
 

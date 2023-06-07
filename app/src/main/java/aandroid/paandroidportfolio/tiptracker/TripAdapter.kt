@@ -1,6 +1,7 @@
 package aandroid.paandroidportfolio.tiptracker
 
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
+import aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,12 +11,16 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TripAdapter(private val tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
-    private fun deleteItem(trip: Trip){
+    private val scope = CoroutineScope(Dispatchers.Main)
+    suspend fun deleteItem(trip: Trip){
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
     class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -43,10 +48,12 @@ class TripAdapter(private val tripList: MutableList<Trip>,
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{
-                deleteItem(currentTrip)
-                tripList.remove(currentTrip)
-                Log.d(TAG,"Deleted Trip")
-                notifyDataSetChanged()
+                scope.launch {
+                    deleteItem(currentTrip)
+                    //Update view
+                    tripList.remove(currentTrip)
+                    notifyDataSetChanged()
+                }
             }
         }
     }

@@ -13,15 +13,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import java.lang.NumberFormatException
 
 class AddTrip : Fragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
     private val lock = Object()
-    private var tripSuccessfullyAdded = false
+    private var criticalSectionAddTripDone = false
     private val successFullyAddedMessage = "Trip Successfully Added"
     private val duration = Toast.LENGTH_SHORT
     private lateinit var fragmentContext: Context
+    private var tripFilledOuCorrectly = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,30 +38,49 @@ class AddTrip : Fragment() {
 
         val editAmount = rootview.findViewById<EditText>(R.id.et_amount_earned)
         val mileageAmount = rootview.findViewById<EditText>(R.id.et_miles_driven)
+        val hourAmount = rootview.findViewById<EditText>(R.id.et_hours_worked)
 
         debugButton.setOnClickListener {
-            sharedViewModel.addTrip(Trip(10, 10, ",", 1))
+            sharedViewModel.addTrip(Trip(10, 10,
+                sharedViewModel.date,
+                1))
 
         }
 
         addTripBtn.setOnClickListener {
             //TODO add checks to see if the inputs make sense
+
             synchronized(lock){
-            sharedViewModel.addTrip(
-                Trip(
-                    editAmount.text.toString().toInt(),
-                    mileageAmount.text.toString().toInt(),
-                    "",
-                    1))
-                tripSuccessfullyAdded = true
+                tripFilledOuCorrectly = true
+             try {
+                 editAmount.text.toString().toInt()
+                 mileageAmount.text.toString().toInt()
+                 hourAmount.text.toString().toInt()
+             }catch (e: NumberFormatException){
+                 Toast.makeText(fragmentContext, "Trip Not Added\nComplete Form Using Numbers", duration).show()
+                 tripFilledOuCorrectly= false
+             }
+                criticalSectionAddTripDone = true
+
             }
             synchronized(lock){
-                while(!tripSuccessfullyAdded){
+                while(!criticalSectionAddTripDone){
                     try{
                         lock.wait()
                     }catch (e: InterruptedException){e.printStackTrace()}
                 }
-                Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()
+                if(tripFilledOuCorrectly){
+                sharedViewModel.addTrip(
+                    Trip(
+                        editAmount.text.toString().toInt(),
+                        mileageAmount.text.toString().toInt(),
+                        sharedViewModel.date,
+                        hourAmount.text.toString().toInt()
+                    )
+                )
+                    Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()
+                }
+                tripFilledOuCorrectly = false
             }
 
         }

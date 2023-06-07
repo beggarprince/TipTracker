@@ -12,11 +12,11 @@ import androidx.activity.viewModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val lock = Object()
     val sharedvm: ViewModel by viewModels()
     private val scope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         //RoomDB must be setup before we fill the recycler view with it's values
         scope.launch {
             sharedvm.roomSetup(this@MainActivity)
+
+            sharedvm.date = LocalDate.now().toString()
 
             Log.d(TAG, "Home Fragment Initializing")
             val tipFragment = HomeFragment()

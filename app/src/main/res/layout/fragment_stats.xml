@@ -23,7 +23,7 @@
             />
 
         <Button
-            android:id="@+id/swipeRight"
+            android:id="@+id/setDateRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SetDateRange"
@@ -36,7 +36,7 @@
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/swipeRight"
+            app:layout_constraintBottom_toBottomOf="@id/setDateRange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 

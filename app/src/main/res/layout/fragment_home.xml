@@ -20,21 +20,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/homeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Trip"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingVertical="8dp"
-            app:layout_constraintBottom_toTopOf="@id/homeButton"
             app:layout_constraintTop_toBottomOf="@+id/tv_weeklyRuns" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

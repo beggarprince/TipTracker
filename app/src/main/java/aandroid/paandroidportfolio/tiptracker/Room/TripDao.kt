@@ -17,7 +17,6 @@ interface TripDao {
     @Query("DELETE FROM TripDatabase WHERE id = :id")
     fun deleteById(id: Int)
 
-
     @Query("DELETE FROM TripDatabase")
     fun deleteAll()
 

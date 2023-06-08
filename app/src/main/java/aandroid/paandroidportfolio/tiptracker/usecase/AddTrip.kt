@@ -33,19 +33,11 @@ class AddTrip : Fragment() {
 
         val fragmentContext = requireContext()
 
-        val debugButton = rootview.findViewById<Button>(R.id.addTripDebug)
         val addTripBtn = rootview.findViewById<Button>(R.id.btn_add_trip)
 
         val editAmount = rootview.findViewById<EditText>(R.id.et_amount_earned)
         val mileageAmount = rootview.findViewById<EditText>(R.id.et_miles_driven)
         val hourAmount = rootview.findViewById<EditText>(R.id.et_hours_worked)
-
-        debugButton.setOnClickListener {
-            sharedViewModel.addTrip(Trip(10, 10,
-                sharedViewModel.date,
-                1))
-
-        }
 
         addTripBtn.setOnClickListener {
             //TODO add checks to see if the inputs make sense

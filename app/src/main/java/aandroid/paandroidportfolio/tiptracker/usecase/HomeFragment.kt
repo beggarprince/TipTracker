@@ -42,11 +42,6 @@ class HomeFragment : Fragment() {
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(this.context)
 
-        val homeFragmentButton = rootview.findViewById<Button>(R.id.homeButton)
-        homeFragmentButton.setOnClickListener {
-
-        }
-
         return rootview
     }
 

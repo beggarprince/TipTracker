@@ -45,6 +45,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
             findViewById<TextView>(R.id.text_distance).text = currentTrip.mileage.toString()
             findViewById<TextView>(R.id.text_money_amount).text = currentTrip.money.toString()
             findViewById<TextView>(R.id.text_hours).text = currentTrip.hours.toString()
+            findViewById<TextView>(R.id.text_date).text = currentTrip.date.toString()
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{
@@ -52,6 +53,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
                     deleteItem(currentTrip)
                     //Update view
                     tripList.remove(currentTrip)
+                    //Should probably update
                     notifyDataSetChanged()
                 }
             }

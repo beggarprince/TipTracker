@@ -64,6 +64,21 @@
             android:layout_height="wrap_content"
             android:text="HOURS"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/date_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textSize="14sp" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

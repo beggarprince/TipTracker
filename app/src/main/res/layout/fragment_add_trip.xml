@@ -41,23 +41,15 @@
         app:layout_constraintTop_toBottomOf="@+id/et_miles_driven"
         android:id="@+id/et_hours_worked"
         />
+
     <Button
+        android:id="@+id/btn_add_trip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:text="Add Trip"
-        android:id="@+id/btn_add_trip"
-      />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          android:id="@+id/addTripDebug"
-          android:text="DEBUG ADD TRIP"
-          />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

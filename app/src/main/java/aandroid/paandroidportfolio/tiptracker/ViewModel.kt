@@ -3,11 +3,10 @@ package aandroid.paandroidportfolio.tiptracker
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
 import aandroid.paandroidportfolio.tiptracker.Room.TripDao
 import aandroid.paandroidportfolio.tiptracker.Room.TripDatabase
+import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +22,7 @@ class ViewModel : ViewModel(), RoomDelete {
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
     var date: String =""
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
@@ -50,6 +50,12 @@ class ViewModel : ViewModel(), RoomDelete {
         val trips = daoReference?.getAll() as MutableList<Trip>
         return trips
     }
+
+    suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip>{
+        val trips = daoReference?.getTripsInRange(startDate,endDate) as MutableList<Trip>
+        return trips
+    }
+
 
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {

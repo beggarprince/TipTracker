@@ -1,8 +1,8 @@
-package aandroid.paandroidportfolio.tiptracker.usecase
+package aandroid.paandroidportfolio.tiptracker.fragments
 
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
-import aandroid.paandroidportfolio.tiptracker.Trip
+import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment

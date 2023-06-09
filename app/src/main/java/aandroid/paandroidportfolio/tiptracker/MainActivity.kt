@@ -1,8 +1,8 @@
 package aandroid.paandroidportfolio.tiptracker
 
-import aandroid.paandroidportfolio.tiptracker.usecase.StatFragment
-import aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment
-import aandroid.paandroidportfolio.tiptracker.usecase.AddTrip
+import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
+import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
+import aandroid.paandroidportfolio.tiptracker.fragments.AddTrip
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

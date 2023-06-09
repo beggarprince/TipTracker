@@ -1,4 +1,4 @@
-package aandroid.paandroidportfolio.tiptracker
+package aandroid.paandroidportfolio.tiptracker.trip
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,6 +1,6 @@
 package aandroid.paandroidportfolio.tiptracker.Room
 
-import aandroid.paandroidportfolio.tiptracker.Trip
+import aandroid.paandroidportfolio.tiptracker.trip.Trip
 
 interface RoomDelete {
      //Interface so the tripadapter can access the viewmodel to call a delete using the dao

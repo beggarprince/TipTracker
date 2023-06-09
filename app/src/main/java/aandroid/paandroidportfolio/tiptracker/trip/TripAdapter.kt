@@ -1,15 +1,12 @@
-package aandroid.paandroidportfolio.tiptracker
+package aandroid.paandroidportfolio.tiptracker.trip
 
+import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
-import aandroid.paandroidportfolio.tiptracker.usecase.HomeFragment
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

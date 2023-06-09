@@ -1,20 +1,16 @@
-package aandroid.paandroidportfolio.tiptracker.usecase
+package aandroid.paandroidportfolio.tiptracker.fragments
 
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
-import aandroid.paandroidportfolio.tiptracker.TripAdapter
+import aandroid.paandroidportfolio.tiptracker.trip.TripAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 

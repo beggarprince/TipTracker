@@ -22,7 +22,14 @@ class ViewModel : ViewModel(), RoomDelete {
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
     var date: String =""
-    private val ioScope = CoroutineScope(Dispatchers.IO)
+     var sfnHourlyRate: Int = 0
+     var sfnGasExpenses: Int = 0
+     var sfnTotalMoney: Int = 0
+     var sfnNetMoney: Int = 0
+     var sfnMPG: Int = 25
+     var sfnGasPrice: Int = 3
+    var sfnHours: Int = 0
+    var sfnMiles: Int = 0
 
     suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
@@ -48,19 +55,20 @@ class ViewModel : ViewModel(), RoomDelete {
 
     private fun getInitialList(): MutableList<Trip> {
         val trips = daoReference?.getAll() as MutableList<Trip>
+        statsForNerds(trips)
         return trips
     }
 
     suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip>{
         val trips = daoReference?.getTripsInRange(startDate,endDate) as MutableList<Trip>
+        statsForNerds(trips)
         return trips
     }
 
 
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
-            //daoReference?.delete(trip)
-            // daoReference?.deleteAll()
+
             val trip = trip.id?.let { daoReference?.getTrip(it) }
             if (trip != null) {
                 daoReference?.delete(trip)
@@ -70,6 +78,34 @@ class ViewModel : ViewModel(), RoomDelete {
         }
     }
 
+    fun statReset(){
+        sfnHours = 0
+        sfnMiles = 0
+        sfnTotalMoney = 0
+    }
+     fun statsForNerds(list :MutableList<Trip>){
+        statReset()
+        for(l in list){
+            // hourly, gas, total earned
+            sfnHours += l.hours
+            sfnMiles += l.mileage
+            sfnTotalMoney += l.money
+        }
 
+        //calc mileage
+        sfnGasExpenses = sfnMiles / sfnMPG * sfnGasPrice
+
+        //calc hourly and net
+        sfnHourlyRate = (sfnTotalMoney - sfnGasExpenses)/sfnHours
+        sfnNetMoney = sfnTotalMoney- sfnGasExpenses
+        Log.d(TAG,"Hourly: " + sfnHourlyRate.toString())
+
+        Log.d(TAG,"Gas Expenses: " + sfnGasExpenses.toString())
+
+        Log.d(TAG,"Total Earned: " + sfnTotalMoney.toString())
+
+        Log.d(TAG,"Net Earned: " + sfnNetMoney.toString())
+
+    }
 
 }

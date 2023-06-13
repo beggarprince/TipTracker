@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -31,9 +32,6 @@ class StatFragment : Fragment() {
     var dateControl = 0
     private var startDate = ""
     private var endDate = ""
-    val scope = CoroutineScope(Dispatchers.IO)
-    val dateReady = false
-    val dateLock = Object()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,61 +39,78 @@ class StatFragment : Fragment() {
     ): View? {
         val rootview = inflater.inflate(R.layout.fragment_stats, container, false)
 
-        val calendar = Calendar.getInstance()
+        //stats for nerds
+        val sfnMiles = rootview.findViewById<TextView>(R.id.sfnMiles)
+        val sfnHours = rootview.findViewById<TextView>(R.id.sfnHours)
+        val sfnTotalEarned = rootview.findViewById<TextView>(R.id.sfnTotalEarned)
+        val sfnGasExpenses = rootview.findViewById<TextView>(R.id.sfnGasExpenses)
+        val sfnNetEarning = rootview.findViewById<TextView>(R.id.sfnNetEarning)
+        val sfnHourlyRate = rootview.findViewById<TextView>(R.id.sfnHourly)
 
+        sfnMiles.text = "Miles Driven: "+sharedViewModel.sfnMiles.toString()
+        sfnHours.text = "Total Hours: " + sharedViewModel.sfnHours.toString()
+        sfnTotalEarned.text = "Total Earned: " + sharedViewModel.sfnTotalMoney.toString()
+        sfnGasExpenses.text = "Gas Expense: " + sharedViewModel.sfnGasExpenses.toString()
+        sfnNetEarning.text = "Net Earning: " + sharedViewModel.sfnNetMoney.toString()
+        sfnHourlyRate.text = "Hourly Rate: " + sharedViewModel.sfnHourlyRate.toString()
+
+        val calendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             updateLabel(calendar)
         }
-
         dateTextView = rootview.findViewById<TextView>(R.id.tv_dateRange)
         val setDateRange = rootview.findViewById<Button>(R.id.setDateRange)
         dateTextView.text = sharedViewModel.date
+        setDateRange.setOnClickListener {
+            context?.let { it1 ->
+                val datePickerDialog = DatePickerDialog(
+                    it1, datePicker, calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
+                )
+                datePickerDialog.setTitle("Choose starting date")
+                datePickerDialog.show()
+                datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, month)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    updateLabel(calendar)
 
-
-            setDateRange.setOnClickListener {
-                context?.let { it1 ->
-                    val datePickerDialog = DatePickerDialog(
+                    // Set the end date DatePickerDialog here, after start date has been set
+                    val endDatePickerDialog = DatePickerDialog(
                         it1, datePicker, calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
                     )
-                    datePickerDialog.setTitle("Choose starting date")
-                    datePickerDialog.show()
-                    datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
+                    endDatePickerDialog.setTitle("Choose end date")
+                    endDatePickerDialog.show()
+                    endDatePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
                         calendar.set(Calendar.YEAR, year)
                         calendar.set(Calendar.MONTH, month)
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         updateLabel(calendar)
+                        Log.d(TAG, "End date input received")
+                        Log.d(TAG, "Start-end:   " + startDate + "- " + endDate)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            sharedViewModel.tripList =
+                                sharedViewModel.getTripInRange(startDate, endDate)
 
-                        // Set the end date DatePickerDialog here, after start date has been set
-                        val endDatePickerDialog = DatePickerDialog(
-                            it1, datePicker, calendar.get(Calendar.YEAR),
-                            calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
-                        )
-                        endDatePickerDialog.setTitle("Choose end date")
-                        endDatePickerDialog.show()
-                        endDatePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
-                            calendar.set(Calendar.YEAR, year)
-                            calendar.set(Calendar.MONTH, month)
-                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            updateLabel(calendar)
-                            Log.d(TAG,"End date input received")
-                            Log.d(TAG, "Start-end:   " + startDate + "- " + endDate)
-                            CoroutineScope(Dispatchers.IO).launch {
-                                sharedViewModel.tripList = sharedViewModel.getTripInRange(startDate, endDate)
-                            }
+                            //Probably a more elegant way to do this
+
+                            sfnMiles.text = "Miles Driven: "+sharedViewModel.sfnMiles.toString()
+                            sfnHours.text = "Total Hours: " + sharedViewModel.sfnHours.toString()
+                            sfnTotalEarned.text = "Total Earned: " + sharedViewModel.sfnTotalMoney.toString()
+                            sfnGasExpenses.text = "Gas Expense: " + sharedViewModel.sfnGasExpenses.toString()
+                            sfnNetEarning.text = "Net Earning: " + sharedViewModel.sfnNetMoney.toString()
+                            sfnHourlyRate.text = "Hourly Rate: " + sharedViewModel.sfnHourlyRate.toString()
+
                         }
                     }
                 }
-
-
-
+            }
 
         }
-
-
 
         return rootview
     }

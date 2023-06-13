@@ -12,38 +12,17 @@
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/tv_dateRange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/setDateRange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetDateRange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dateRange" />
-
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/setDateRange"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/sfnMiles"

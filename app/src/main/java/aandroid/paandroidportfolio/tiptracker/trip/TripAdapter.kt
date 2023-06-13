@@ -51,7 +51,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
                     //Update view
                     tripList.remove(currentTrip)
                     //Should probably update
-                    notifyDataSetChanged()
+                    notifyItemRemoved(position)
                 }
             }
         }

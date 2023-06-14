@@ -9,22 +9,17 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="This is where you would add a trip"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/add_trip_message"/>
+
     <EditText
+        android:id="@+id/et_amount_earned"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Amount Earned"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_trip"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_trip_message"
-        android:id="@+id/et_amount_earned"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,14 +28,14 @@
         app:layout_constraintTop_toBottomOf="@+id/et_amount_earned"
         android:id="@+id/et_miles_driven"
         />
+
     <EditText
+        android:id="@+id/et_hours_worked"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Hours"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_miles_driven"
-        android:id="@+id/et_hours_worked"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/et_miles_driven" />
 
     <Button
         android:id="@+id/btn_add_trip"

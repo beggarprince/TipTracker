@@ -26,7 +26,7 @@ class ViewModel : ViewModel(), RoomDelete {
      var sfnGasExpenses: Int = 0
      var sfnTotalMoney: Int = 0
      var sfnNetMoney: Int = 0
-     var sfnMPG: Int = 25
+     var sfnMPG: Int = 0
      var sfnGasPrice: Int = 3
     var sfnHours: Int = 0
     var sfnMiles: Int = 0

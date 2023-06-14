@@ -4,6 +4,7 @@ import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.AddTrip
 import android.content.ContentValues.TAG
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,12 +23,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val sharedPreferences
+        = getSharedPreferences("myInteger", Context.MODE_PRIVATE)
+
 
         //RoomDB must be setup before we fill the recycler view with it's values
         scope.launch {
+            var a: Int? = sharedPreferences.getInt("myInteger", 1)
+            if (a != null) {
+                sharedvm.sfnMPG = a
+            }
+            else sharedvm.sfnMPG = 2
+
             sharedvm.roomSetup(this@MainActivity)
 
             sharedvm.date = LocalDate.now().toString()
+
 
             Log.d(TAG, "Home Fragment Initializing")
             val tipFragment = HomeFragment()

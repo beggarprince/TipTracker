@@ -22,7 +22,6 @@ class AddTrip : Fragment() {
     private var criticalSectionAddTripDone = false
     private val successFullyAddedMessage = "Trip Successfully Added"
     private val duration = Toast.LENGTH_SHORT
-    private lateinit var fragmentContext: Context
     private var tripFilledOuCorrectly = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

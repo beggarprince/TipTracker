@@ -70,7 +70,6 @@ class AddTrip : Fragment() {
                         sharedViewModel.date,
                         hourAmount.text.toString().toInt(),
                         gasprice.text.toString().toInt().toFloat()
-
                     )
                 )
                     Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()

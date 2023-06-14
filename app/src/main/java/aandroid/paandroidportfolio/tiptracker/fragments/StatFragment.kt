@@ -37,12 +37,23 @@ class StatFragment : Fragment() {
         val rootview = inflater.inflate(R.layout.fragment_stats, container, false)
 
         //stats for nerds
-        val sfnMiles = rootview.findViewById<TextView>(R.id.sfnMiles)
-        val sfnHours = rootview.findViewById<TextView>(R.id.sfnHours)
-        val sfnTotalEarned = rootview.findViewById<TextView>(R.id.sfnTotalEarned)
-        val sfnGasExpenses = rootview.findViewById<TextView>(R.id.sfnGasExpenses)
-        val sfnNetEarning = rootview.findViewById<TextView>(R.id.sfnNetEarning)
-        val sfnHourlyRate = rootview.findViewById<TextView>(R.id.sfnHourly)
+        val sfnMiles = rootview.findViewById<TextView>(R.id.sfnMiles) // how many miles were driven
+        val sfnHours = rootview.findViewById<TextView>(R.id.sfnHours) // how many hours worked
+        val sfnTotalEarned = rootview.findViewById<TextView>(R.id.sfnTotalEarned) // how much money earned
+        val sfnGasExpenses = rootview.findViewById<TextView>(R.id.sfnGasExpenses) // gas cost based on miles/mpg * gas price
+        val sfnNetEarning = rootview.findViewById<TextView>(R.id.sfnNetEarning) // total earned - gas expenses
+        val sfnHourlyRate = rootview.findViewById<TextView>(R.id.sfnHourly) // total earned / hours worked
+        val sfnMyMPG = rootview.findViewById<TextView>(R.id.sfnMyMPG) // User provided MPG of their car
+
+        //Button to switch to register fragment
+        val mpgButton = rootview.findViewById<Button>(R.id.changeMPG)
+        mpgButton.setOnClickListener{
+            Log.d(TAG, "Register Fragment Initializing")
+            val regFragment = Register()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.mainFragment, regFragment)
+                .commit()
+        }
 
         //Update values to reflect viewmodel values
         sfnMiles.text = "Miles Driven: "+sharedViewModel.sfnMiles.toString()
@@ -51,7 +62,7 @@ class StatFragment : Fragment() {
         sfnGasExpenses.text = "Gas Expense: " + sharedViewModel.sfnGasExpenses.toString()
         sfnNetEarning.text = "Net Earning: " + sharedViewModel.sfnNetMoney.toString()
         sfnHourlyRate.text = "Hourly Rate: " + sharedViewModel.sfnHourlyRate.toString()
-
+        sfnMyMPG.text = "My MPG: " + sharedViewModel.sfnMPG.toString()
 
         return rootview
     }

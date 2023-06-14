@@ -3,6 +3,7 @@ package aandroid.paandroidportfolio.tiptracker
 import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.AddTrip
+import aandroid.paandroidportfolio.tiptracker.fragments.Register
 import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -24,16 +25,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val sharedPreferences
-        = getSharedPreferences("myInteger", Context.MODE_PRIVATE)
+        = getSharedPreferences("savedata", Context.MODE_PRIVATE)
 
 
         //RoomDB must be setup before we fill the recycler view with it's values
         scope.launch {
-            var a: Int? = sharedPreferences.getInt("myInteger", 1)
-            if (a != null) {
+
+            //Check for MPG saved value, set to 25 if it's missing
+            var a: Int = sharedPreferences.getInt("myInteger", 1)
+            if (a != 1) {
                 sharedvm.sfnMPG = a
+                Log.d(TAG,"A is not null")
+                Log.d(TAG,a.toString())
             }
-            else sharedvm.sfnMPG = 2
+            else {
+                Log.d(TAG,"A is null")
+                sharedvm.sfnMPG = 25
+            }
 
             sharedvm.roomSetup(this@MainActivity)
 

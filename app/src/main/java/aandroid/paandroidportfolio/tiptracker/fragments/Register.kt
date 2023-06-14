@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import android.content.Context
+import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 
@@ -30,13 +31,18 @@ class Register : Fragment() {
         var rootview = inflater.inflate(R.layout.fragment_register, container, false)
         var etMPG = rootview.findViewById<EditText>(R.id.et_mpg)
         var etVehicleName = rootview.findViewById<EditText>(R.id.et_vehicle_name)
+        var btnRegister = rootview.findViewById<Button>(R.id.btn_register)
 
-        val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
+        val sharedPreferences = requireActivity()
+            .getSharedPreferences("savedata", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt("myInteger", etMPG.text.toString().toInt())
-        editor.apply() // or editor.commit()
 
+        btnRegister.setOnClickListener {
+            editor.putInt("myInteger", etMPG.text.toString().toInt())
+            editor.apply() // or editor.commit()
+            sharedViewModel.sfnMPG = etMPG.text.toString().toInt()
+        }
         return rootview
     }
 

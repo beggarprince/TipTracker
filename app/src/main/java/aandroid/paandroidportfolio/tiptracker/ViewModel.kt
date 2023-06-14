@@ -21,13 +21,13 @@ class ViewModel : ViewModel(), RoomDelete {
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
-    var date: String =""
-     var sfnHourlyRate: Int = 0
-     var sfnGasExpenses: Int = 0
-     var sfnTotalMoney: Int = 0
-     var sfnNetMoney: Int = 0
-     var sfnMPG: Int = 0
-     var sfnGasPrice: Int = 3
+    var date: String = ""
+    var sfnHourlyRate: Int = 0
+    var sfnGasExpenses: Int = 0
+    var sfnTotalMoney: Int = 0
+    var sfnNetMoney: Int = 0
+    var sfnMPG: Int = 1
+    var sfnGasPrice: Int = 3
     var sfnHours: Int = 0
     var sfnMiles: Int = 0
 
@@ -36,7 +36,8 @@ class ViewModel : ViewModel(), RoomDelete {
         database = Room.databaseBuilder(
             applicationContext,
             TripDatabase::class.java, "my-database"
-        ).build()
+        ).addMigrations(TripDatabase.Companion.MIGRATION_1_2)
+            .build()
         daoReference = database?.tripDao()
         Log.d(TAG, "Room  Init  Setup")
         tripList = getInitialList()
@@ -59,8 +60,8 @@ class ViewModel : ViewModel(), RoomDelete {
         return trips
     }
 
-    suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip>{
-        val trips = daoReference?.getTripsInRange(startDate,endDate) as MutableList<Trip>
+    suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip> {
+        val trips = daoReference?.getTripsInRange(startDate, endDate) as MutableList<Trip>
         statsForNerds(trips)
         return trips
     }
@@ -78,14 +79,17 @@ class ViewModel : ViewModel(), RoomDelete {
         }
     }
 
-    fun statReset(){
+    fun statReset() {
         sfnHours = 0
         sfnMiles = 0
         sfnTotalMoney = 0
     }
-     fun statsForNerds(list :MutableList<Trip>){
+
+    fun statsForNerds(list: MutableList<Trip>) {
+        if(list.isEmpty())return
+
         statReset()
-        for(l in list){
+        for (l in list) {
             // hourly, gas, total earned
             sfnHours += l.hours
             sfnMiles += l.mileage
@@ -96,15 +100,15 @@ class ViewModel : ViewModel(), RoomDelete {
         sfnGasExpenses = sfnMiles / sfnMPG * sfnGasPrice
 
         //calc hourly and net
-        sfnHourlyRate = (sfnTotalMoney - sfnGasExpenses)/sfnHours
-        sfnNetMoney = sfnTotalMoney- sfnGasExpenses
-        Log.d(TAG,"Hourly: " + sfnHourlyRate.toString())
+        sfnHourlyRate = (sfnTotalMoney - sfnGasExpenses) / sfnHours
+        sfnNetMoney = sfnTotalMoney - sfnGasExpenses
+        Log.d(TAG, "Hourly: " + sfnHourlyRate.toString())
 
-        Log.d(TAG,"Gas Expenses: " + sfnGasExpenses.toString())
+        Log.d(TAG, "Gas Expenses: " + sfnGasExpenses.toString())
 
-        Log.d(TAG,"Total Earned: " + sfnTotalMoney.toString())
+        Log.d(TAG, "Total Earned: " + sfnTotalMoney.toString())
 
-        Log.d(TAG,"Net Earned: " + sfnNetMoney.toString())
+        Log.d(TAG, "Net Earned: " + sfnNetMoney.toString())
 
     }
 

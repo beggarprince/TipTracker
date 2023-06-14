@@ -37,6 +37,7 @@ class AddTrip : Fragment() {
         val editAmount = rootview.findViewById<EditText>(R.id.et_amount_earned)
         val mileageAmount = rootview.findViewById<EditText>(R.id.et_miles_driven)
         val hourAmount = rootview.findViewById<EditText>(R.id.et_hours_worked)
+        val gasprice = rootview.findViewById<EditText>(R.id.et_price_per_gallon)
 
         addTripBtn.setOnClickListener {
             //TODO add checks to see if the inputs make sense
@@ -47,6 +48,7 @@ class AddTrip : Fragment() {
                  editAmount.text.toString().toInt()
                  mileageAmount.text.toString().toInt()
                  hourAmount.text.toString().toInt()
+                 gasprice.text.toString().toInt()
              }catch (e: NumberFormatException){
                  Toast.makeText(fragmentContext, "Trip Not Added\nComplete Form Using Numbers", duration).show()
                  tripFilledOuCorrectly= false
@@ -66,7 +68,9 @@ class AddTrip : Fragment() {
                         editAmount.text.toString().toInt(),
                         mileageAmount.text.toString().toInt(),
                         sharedViewModel.date,
-                        hourAmount.text.toString().toInt()
+                        hourAmount.text.toString().toInt(),
+                        gasprice.text.toString().toInt().toFloat()
+
                     )
                 )
                     Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()

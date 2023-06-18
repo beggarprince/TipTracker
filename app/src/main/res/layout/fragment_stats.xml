@@ -18,103 +18,113 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toTopOf="@+id/sfnMyMPG"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/changeMPG">
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
                 android:layout_gravity="center"
-                android:src="@drawable/mileage" />
+                android:src="@drawable/newmileage"
+                />
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
                 android:layout_gravity="center"
                 android:src="@drawable/hours" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:src="@drawable/moneyearned" />
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:src="@drawable/gas" />
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:src="@drawable/moneyearned" />
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:src="@drawable/hourly" />
-        </GridLayout>
-
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/sfnMiles"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Miles Driven: " />
+                android:layout_marginTop="8dp"
+                android:text="Miles Driven: "
+                android:textSize="16sp"
+                />
 
             <TextView
                 android:id="@+id/sfnHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Toral Hours: " />
+                android:layout_marginTop="8dp"
+                android:text="Toral Hours: "
+                android:textSize="16sp"
+                />
+
+
+            <ImageView
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
+                android:layout_gravity="center"
+                android:src="@drawable/moneyearned" />
+
+            <ImageView
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
+                android:layout_gravity="center"
+                android:src="@drawable/gas" />
 
             <TextView
                 android:id="@+id/sfnTotalEarned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Earned: " />
+                android:layout_marginTop="8dp"
+                android:text="Total Earned: "
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/sfnGasExpenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gas Expense: " />
+                android:layout_marginTop="8dp"
+                android:text="Gas Expense: "
+                android:textSize="16sp" />
+
+
+            <ImageView
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
+                android:layout_gravity="center"
+                android:src="@drawable/moneyearned" />
+
+            <ImageView
+                android:layout_width="@string/sfnImageSquare"
+                android:layout_height="@string/sfnImageSquare"
+                android:layout_gravity="center"
+                android:src="@drawable/hourly" />
 
             <TextView
                 android:id="@+id/sfnNetEarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Net Earning: " />
+                android:layout_marginTop="8dp"
+                android:text="Net Earning: "
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/sfnHourly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hourly Rate: " />
+                android:layout_marginTop="8dp"
+                android:text="Hourly Rate: "
+                android:textSize="16sp" />
+        </GridLayout>
 
-            <TextView
-                android:id="@+id/sfnMyMPG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Estimated MPG:"></TextView>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/sfnMyMPG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimated MPG:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/changeMPG"

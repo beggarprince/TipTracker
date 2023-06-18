@@ -79,7 +79,7 @@ class ViewModel : ViewModel(), RoomDelete {
         }
     }
 
-    fun statReset() {
+    private fun statReset() {
         sfnHours = 0
         sfnMiles = 0
         sfnTotalMoney = 0

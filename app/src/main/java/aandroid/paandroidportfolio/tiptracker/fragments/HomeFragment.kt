@@ -105,6 +105,7 @@ class HomeFragment : Fragment() {
 
                             withContext(Dispatchers.Main) {
                                 adapter.resetData(sharedViewModel.tripList)
+                                dateControl = 0
                             }
                         }
 

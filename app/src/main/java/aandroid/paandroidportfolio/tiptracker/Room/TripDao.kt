@@ -28,4 +28,7 @@ interface TripDao {
 
     @Query("SELECT * FROM TripDatabase WHERE date BETWEEN :startDate AND :endDate")
     fun getTripsInRange(startDate: String, endDate: String): List<Trip>
+
+    @Query("SELECT * FROM TripDatabase WHERE date >= date('now','-7 day')")
+    fun getLastWeekTrips(): List<Trip>
 }

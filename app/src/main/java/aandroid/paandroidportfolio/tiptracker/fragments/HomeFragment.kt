@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -93,11 +95,20 @@ class HomeFragment : Fragment() {
                         updateLabel(calendar)
                         Log.d(ContentValues.TAG, "End date input received")
                         Log.d(ContentValues.TAG, "Start-end:   " + startDate + "- " + endDate)
+//                        CoroutineScope(Dispatchers.IO).launch {
+//                            sharedViewModel.tripList = sharedViewModel.getTripInRange(startDate, endDate)
+//                        }
+//                        adapter.resetData()
                         CoroutineScope(Dispatchers.IO).launch {
-                            sharedViewModel.tripList =
-                                sharedViewModel.getTripInRange(startDate, endDate)
+                            val deferred = async { sharedViewModel.getTripInRange(startDate, endDate) }
+                            sharedViewModel.tripList = deferred.await()
 
+                            withContext(Dispatchers.Main) {
+                                adapter.resetData(sharedViewModel.tripList)
+                            }
                         }
+
+
                     }
                 }
             }

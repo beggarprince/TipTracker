@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
-class TripAdapter(private val tripList: MutableList<Trip>,
+class TripAdapter(private var tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
@@ -35,6 +35,10 @@ class TripAdapter(private val tripList: MutableList<Trip>,
 
     override fun getItemCount(): Int {
         return tripList.size
+    }
+    fun resetData(newList: MutableList<Trip>){
+        tripList = newList
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {

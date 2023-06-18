@@ -31,6 +31,8 @@ class ViewModel : ViewModel(), RoomDelete {
     var sfnHours: Int = 0
     var sfnMiles: Int = 0
 
+    //Creates an instance of database and dao
+    // and fills the mutablelist tripList with trips.
     suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
         database = Room.databaseBuilder(
@@ -47,6 +49,8 @@ class ViewModel : ViewModel(), RoomDelete {
     fun addTrip(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
             //manually set the trip id
+            //Otherwise the id isn't set for some reason, and if you delete a newly created trip it comes back up when you launch it
+            //trips not created in a previous run are deletable with no bugs
             val tripwithid = trip.copy(id = daoReference?.insert(trip)?.toInt())
             tripList.add(tripwithid)
             statsForNerds(tripList)
@@ -55,7 +59,7 @@ class ViewModel : ViewModel(), RoomDelete {
     }
 
     private fun getInitialList(): MutableList<Trip> {
-        val trips = daoReference?.getAll() as MutableList<Trip>
+        val trips = daoReference?.getLastWeekTrips() as MutableList<Trip>
         statsForNerds(trips)
         return trips
     }

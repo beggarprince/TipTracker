@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 class TripAdapter(private val tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
@@ -43,6 +44,7 @@ class TripAdapter(private val tripList: MutableList<Trip>,
             findViewById<TextView>(R.id.text_money_amount).text = currentTrip.money.toString()
             findViewById<TextView>(R.id.text_hours).text = currentTrip.hours.toString()
             findViewById<TextView>(R.id.text_date).text = currentTrip.date.toString()
+            findViewById<TextView>(R.id.gas_price).text = currentTrip.gasprice.toString()
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{

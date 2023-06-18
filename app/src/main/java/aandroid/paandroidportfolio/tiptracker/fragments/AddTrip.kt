@@ -40,8 +40,6 @@ class AddTrip : Fragment() {
         val gasprice = rootview.findViewById<EditText>(R.id.et_price_per_gallon)
 
         addTripBtn.setOnClickListener {
-            //TODO add checks to see if the inputs make sense
-
             synchronized(lock){
                 tripFilledOuCorrectly = true
              try {

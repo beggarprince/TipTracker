@@ -49,7 +49,7 @@ class ViewModel : ViewModel(), RoomDelete {
             //manually set the trip id
             val tripwithid = trip.copy(id = daoReference?.insert(trip)?.toInt())
             tripList.add(tripwithid)
-
+            statsForNerds(tripList)
         }
 
     }
@@ -76,6 +76,7 @@ class ViewModel : ViewModel(), RoomDelete {
             } else Log.d(TAG, "TRIP ID IS NULL")
 
             Log.d(TAG, "Deleting Trip")
+            statsForNerds(tripList)
         }
     }
 
@@ -83,12 +84,15 @@ class ViewModel : ViewModel(), RoomDelete {
         sfnHours = 0
         sfnMiles = 0
         sfnTotalMoney = 0
+        sfnGasExpenses = 0
+        sfnHourlyRate = 0
+        sfnNetMoney = 0
     }
 
     fun statsForNerds(list: MutableList<Trip>) {
+        statReset()
         if(list.isEmpty())return
 
-        statReset()
         for (l in list) {
             // hourly, gas, total earned
             sfnHours += l.hours

@@ -92,7 +92,11 @@ class ViewModel : ViewModel(), RoomDelete {
         sfnHourlyRate = 0
         sfnNetMoney = 0
     }
-
+//TODO check if there is any reason why I am passing the list: MutableList<Trip> instead of
+    //simply accessing the tripList in the viewmodel
+    fun sfn(){
+        statsForNerds(tripList)
+    }
     fun statsForNerds(list: MutableList<Trip>) {
         statReset()
         if(list.isEmpty())return

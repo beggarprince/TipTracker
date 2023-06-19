@@ -3,7 +3,6 @@ package aandroid.paandroidportfolio.tiptracker
 import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.AddTrip
-import aandroid.paandroidportfolio.tiptracker.fragments.Register
 import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

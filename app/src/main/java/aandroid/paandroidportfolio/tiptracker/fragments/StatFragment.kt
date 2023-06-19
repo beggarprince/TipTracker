@@ -9,8 +9,10 @@ import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.CoroutineScope
@@ -43,16 +45,29 @@ class StatFragment : Fragment() {
         val sfnGasExpenses = rootview.findViewById<TextView>(R.id.sfnGasExpenses) // gas cost based on miles/mpg * gas price
         val sfnNetEarning = rootview.findViewById<TextView>(R.id.sfnNetEarning) // total earned - gas expenses
         val sfnHourlyRate = rootview.findViewById<TextView>(R.id.sfnHourly) // total earned / hours worked
-        val sfnMyMPG = rootview.findViewById<TextView>(R.id.sfnMyMPG) // User provided MPG of their car
+        val sfnMyMPG = rootview.findViewById<EditText>(R.id.sfnMyMPG) // User provided MPG of their car
+
+        val sharedPreferences = requireActivity()
+            .getSharedPreferences("savedata", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
 
         //Button to switch to register fragment
         val mpgButton = rootview.findViewById<Button>(R.id.changeMPG)
         mpgButton.setOnClickListener{
-            Log.d(TAG, "Register Fragment Initializing")
-            val regFragment = Register()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.mainFragment, regFragment)
-                .commit()
+            Log.d(TAG, "Updating mpg")
+            sharedViewModel.sfnMPG = sfnMyMPG.text.toString().toInt()
+            Log.d(TAG, sharedViewModel.sfnMPG.toString())
+            editor.putInt("myInteger", sharedViewModel.sfnMPG)
+            editor.apply()
+            sharedViewModel.sfn()
+            sfnMiles.text = "Miles Driven: "+sharedViewModel.sfnMiles.toString()
+            sfnHours.text = "Total Hours: " + sharedViewModel.sfnHours.toString()
+            sfnTotalEarned.text = "Total Earned: " + sharedViewModel.sfnTotalMoney.toString()
+            sfnGasExpenses.text = "Gas Expense: " + sharedViewModel.sfnGasExpenses.toString()
+            sfnNetEarning.text = "Net Earning: " + sharedViewModel.sfnNetMoney.toString()
+            sfnHourlyRate.text = "Hourly Rate: " + sharedViewModel.sfnHourlyRate.toString()
+            // sfnMyMPG.text = "My MPG: " + sharedViewModel.sfnMPG.toString()
+            sfnMyMPG.setText(sharedViewModel.sfnMPG.toString())
         }
 
         //Update values to reflect viewmodel values
@@ -62,7 +77,8 @@ class StatFragment : Fragment() {
         sfnGasExpenses.text = "Gas Expense: " + sharedViewModel.sfnGasExpenses.toString()
         sfnNetEarning.text = "Net Earning: " + sharedViewModel.sfnNetMoney.toString()
         sfnHourlyRate.text = "Hourly Rate: " + sharedViewModel.sfnHourlyRate.toString()
-        sfnMyMPG.text = "My MPG: " + sharedViewModel.sfnMPG.toString()
+       // sfnMyMPG.text = "My MPG: " + sharedViewModel.sfnMPG.toString()
+        sfnMyMPG.setText(sharedViewModel.sfnMPG.toString())
 
         return rootview
     }

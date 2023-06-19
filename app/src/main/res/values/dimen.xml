@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen   name="sfnImageWidth">48dp</dimen>
+    <dimen   name="sfnImageHeight">48dp</dimen>
+    <dimen name="sfnImageSquare">80dp</dimen>
+</resources>

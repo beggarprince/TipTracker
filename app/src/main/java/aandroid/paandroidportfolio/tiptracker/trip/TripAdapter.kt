@@ -21,7 +21,7 @@ class TripAdapter(private var tripList: MutableList<Trip>,
     suspend fun deleteItem(trip: Trip){
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
-    class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)//laptop test
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         return TripViewHolder(

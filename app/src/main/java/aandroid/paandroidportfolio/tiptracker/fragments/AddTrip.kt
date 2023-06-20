@@ -4,7 +4,6 @@ import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,11 +22,8 @@ import java.util.Locale
 class AddTrip : Fragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
-    private val lock = Object()
-    private var criticalSectionAddTripDone = false
     private val successFullyAddedMessage = "Trip Successfully Added"
     private val duration = Toast.LENGTH_SHORT
-    private var tripFilledOuCorrectly = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,45 +74,25 @@ class AddTrip : Fragment() {
         }
 
         addTripBtn.setOnClickListener {
-            synchronized(lock) {
-                tripFilledOuCorrectly = true
-                try {
-                    editAmount.text.toString().toInt()
-                    mileageAmount.text.toString().toInt()
-                    hourAmount.text.toString().toInt()
-                    gasprice.text.toString().toInt().toFloat()
-                } catch (e: NumberFormatException) {
-                    Toast.makeText(
-                        fragmentContext,
-                        "Trip Not Added\nComplete Form Using Numbers",
-                        duration
-                    ).show()
-                    tripFilledOuCorrectly = false
-                }
-                criticalSectionAddTripDone = true
 
-            }
-            synchronized(lock) {
-                while (!criticalSectionAddTripDone) {
-                    try {
-                        lock.wait()
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-                }
-                if (tripFilledOuCorrectly) {
-                    sharedViewModel.addTrip(
-                        Trip(
-                            editAmount.text.toString().toInt(),
-                            mileageAmount.text.toString().toInt(),
-                            date.text.toString(),
-                            hourAmount.text.toString().toInt(),
-                            gasprice.text.toString().toInt().toFloat()
-                        )
+            try {
+                sharedViewModel.addTrip(
+                    Trip(
+                        editAmount.text.toString().toInt(),
+                        mileageAmount.text.toString().toInt(),
+                        date.text.toString(),
+                        hourAmount.text.toString().toInt(),
+                        gasprice.text.toString().toInt().toFloat()
                     )
-                    Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()
-                }
-                tripFilledOuCorrectly = false
+                )
+                Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()
+
+            } catch (e: NumberFormatException) {
+                Toast.makeText(
+                    fragmentContext,
+                    "Trip Not Added\nComplete Form Using Numbers",
+                    duration
+                ).show()
             }
 
         }

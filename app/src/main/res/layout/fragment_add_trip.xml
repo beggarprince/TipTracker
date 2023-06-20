@@ -6,56 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddTrip">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_amount_earned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Amount Earned"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_trip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        <EditText
+            android:id="@+id/et_amount_earned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Amount Earned"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add_trip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322" />
 
-    <EditText
-        android:id="@+id/et_miles_driven"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Miles Driven"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_amount_earned" />
+        <EditText
+            android:id="@+id/et_miles_driven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Miles Driven"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_amount_earned" />
 
-    <EditText
-        android:id="@+id/et_hours_worked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Hours"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_miles_driven" />
+        <EditText
+            android:id="@+id/et_hours_worked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Hours"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_miles_driven" />
 
-    <EditText
-        android:id="@+id/et_price_per_gallon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Gas Price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_hours_worked" />
+        <EditText
+            android:id="@+id/et_price_per_gallon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Gas Price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_hours_worked" />
 
-    <Button
-        android:id="@+id/btn_add_trip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Trip"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/dateOverride"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date override"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_price_per_gallon" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Date"
+            android:id="@+id/btn_dateOverride"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateOverride" />
+
+
+        <Button
+            android:id="@+id/btn_add_trip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Trip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -63,15 +63,21 @@ class HomeFragment : Fragment() {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             updateLabel(calendar)
         }
+
+
         dateTextView = rootview.findViewById<TextView>(R.id.tv_dateRange)
         val setDateRange = rootview.findViewById<Button>(R.id.setDateRange)
         dateTextView.text = sharedViewModel.date
 
+        //Creates two calendar dialogues for start and end date
         setDateRange.setOnClickListener {
             context?.let { it1 ->
                 val datePickerDialog = DatePickerDialog(
-                    it1, datePicker, calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
+                    it1,
+                    datePicker,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
                 )
                 datePickerDialog.setTitle("Choose starting date")
                 datePickerDialog.show()

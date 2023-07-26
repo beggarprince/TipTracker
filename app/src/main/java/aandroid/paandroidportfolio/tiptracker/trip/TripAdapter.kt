@@ -17,6 +17,8 @@ class TripAdapter(private var tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
+    private var mpg : Float=  25f
+
     private val scope = CoroutineScope(Dispatchers.Main)
     suspend fun deleteItem(trip: Trip){
         deleteTripListener.deleteTripFromRoomDatabase(trip)
@@ -40,6 +42,10 @@ class TripAdapter(private var tripList: MutableList<Trip>,
         tripList = newList
         notifyDataSetChanged()
     }
+    fun setMPG(newMpg: Float){
+        mpg = newMpg
+        notifyDataSetChanged()
+    }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val currentTrip = tripList[position]
@@ -49,6 +55,7 @@ class TripAdapter(private var tripList: MutableList<Trip>,
             findViewById<TextView>(R.id.text_hours).text = currentTrip.hours.toString()
             findViewById<TextView>(R.id.text_date).text = currentTrip.date.toString()
             findViewById<TextView>(R.id.gas_price).text = currentTrip.gasprice.toString()
+            findViewById<TextView>(R.id.gas_expense).text = (currentTrip.mileage / mpg * currentTrip.gasprice).toString()
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{

@@ -24,6 +24,7 @@ class AddTrip : Fragment() {
     private val sharedViewModel: ViewModel by activityViewModels()
     private val successFullyAddedMessage = "Trip Successfully Added"
     private val duration = Toast.LENGTH_SHORT
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,13 +77,14 @@ class AddTrip : Fragment() {
         addTripBtn.setOnClickListener {
 
             try {
+
                 sharedViewModel.addTrip(
                     Trip(
-                        editAmount.text.toString().toInt(),
-                        mileageAmount.text.toString().toInt(),
+                        editAmount.text.toString().toFloat(),
+                        mileageAmount.text.toString().toFloat(),
                         date.text.toString(),
-                        hourAmount.text.toString().toInt(),
-                        gasprice.text.toString().toInt().toFloat()
+                        hourAmount.text.toString().toFloat(),
+                        gasprice.text.toString().toFloat()
                     )
                 )
                 Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()

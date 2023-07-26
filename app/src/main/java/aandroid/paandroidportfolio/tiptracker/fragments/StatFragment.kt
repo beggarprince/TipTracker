@@ -11,6 +11,7 @@ import android.content.Context
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 
 class StatFragment : Fragment() {
@@ -22,6 +23,7 @@ class StatFragment : Fragment() {
     private lateinit var sfnGasExpenses: TextView
     private lateinit var sfnNetEarning: TextView
     private lateinit var sfnHourlyRate: TextView
+    private val duration = Toast.LENGTH_SHORT
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,7 @@ class StatFragment : Fragment() {
     ): View? {
         val rootview = inflater.inflate(R.layout.fragment_stats, container, false)
 
+        val fragmentContext = requireContext()
         //stats for nerds
         sfnMiles = rootview.findViewById<TextView>(R.id.sfnMiles) // how many miles were driven
         sfnHours = rootview.findViewById<TextView>(R.id.sfnHours) // how many hours worked
@@ -51,9 +54,18 @@ class StatFragment : Fragment() {
         val mpgButton = rootview.findViewById<Button>(R.id.changeMPG)
         mpgButton.setOnClickListener {
 
-            sharedViewModel.sfnMPG = sfnMyMPG.text.toString().toInt()
+            try {
+                sharedViewModel.sfnMPG = sfnMyMPG.text.toString().toFloat()
+            }
+            catch (e: NumberFormatException) {
+                Toast.makeText(
+                    fragmentContext,
+                    "MPG Not Updated",
+                    duration
+                ).show()
+            }
 
-            editor.putInt("myInteger", sharedViewModel.sfnMPG)
+            editor.putFloat("myFloat", sharedViewModel.sfnMPG)
             editor.apply()
             sharedViewModel.sfn()
             sfnUpdate()

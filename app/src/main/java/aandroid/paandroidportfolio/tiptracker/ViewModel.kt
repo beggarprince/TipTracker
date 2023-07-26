@@ -22,14 +22,14 @@ class ViewModel : ViewModel(), RoomDelete {
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
     var date: String = ""
-    var sfnHourlyRate: Int = 0
-    var sfnGasExpenses: Int = 0
-    var sfnTotalMoney: Int = 0
-    var sfnNetMoney: Int = 0
-    var sfnMPG: Int = 1
-    var sfnGasPrice: Int = 3
-    var sfnHours: Int = 0
-    var sfnMiles: Int = 0
+    var sfnHourlyRate: Float = 0.0f
+    var sfnGasExpenses: Float = 0.0f
+    var sfnTotalMoney: Float = 0.0f
+    var sfnNetMoney: Float = 0.0f
+    var sfnMPG: Float = 1.0f
+    var sfnGasPrice: Float = 3.0f
+    var sfnHours: Float = 0.0f
+    var sfnMiles: Float = 0.0f
 
     //Creates an instance of database and dao
     // and fills the mutablelist tripList with trips.
@@ -74,9 +74,9 @@ class ViewModel : ViewModel(), RoomDelete {
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
 
-            val trip = trip.id?.let { daoReference?.getTrip(it) }
-            if (trip != null) {
-                daoReference?.delete(trip)
+            val newtrip = trip.id?.let { daoReference?.getTrip(it) }
+            if (newtrip != null) {
+                daoReference?.delete(newtrip)
             } else Log.d(TAG, "TRIP ID IS NULL")
 
             Log.d(TAG, "Deleting Trip")
@@ -85,12 +85,12 @@ class ViewModel : ViewModel(), RoomDelete {
     }
 
     private fun statReset() {
-        sfnHours = 0
-        sfnMiles = 0
-        sfnTotalMoney = 0
-        sfnGasExpenses = 0
-        sfnHourlyRate = 0
-        sfnNetMoney = 0
+        sfnHours = 0f
+        sfnMiles = 0f
+        sfnTotalMoney = 0f
+        sfnGasExpenses = 0f
+        sfnHourlyRate = 0f
+        sfnNetMoney = 0f
     }
 //TODO check if there is any reason why I am passing the list: MutableList<Trip> instead of
     //simply accessing the tripList in the viewmodel

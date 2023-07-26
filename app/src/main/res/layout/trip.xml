@@ -113,13 +113,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_" />
 
+        <TextView
+            android:id="@+id/text_gasexpense"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAS EXPENSE"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_gasprice" />
+
+        <TextView
+            android:id="@+id/gas_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAS EXPENSE $$$$"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_gasprice" />
+
         <Button
             android:id="@+id/btn_delete_trip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gasprice" />
+            app:layout_constraintTop_toBottomOf="@+id/text_gasexpense" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

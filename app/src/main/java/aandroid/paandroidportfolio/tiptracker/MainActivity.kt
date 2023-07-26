@@ -31,15 +31,15 @@ class MainActivity : AppCompatActivity() {
         scope.launch {
 
             //Check for MPG saved value, set to 25 if it's missing
-            var a: Int = sharedPreferences.getInt("myInteger", 1)
-            if (a != 1) {
+            var a: Float = sharedPreferences.getFloat("myFloat", 1f)
+            if (a != 1f) {
                 sharedvm.sfnMPG = a
                 Log.d(TAG,"A is not null")
                 Log.d(TAG,a.toString())
             }
             else {
                 Log.d(TAG,"A is null")
-                sharedvm.sfnMPG = 25
+                sharedvm.sfnMPG = 25f
             }
 
             sharedvm.roomSetup(this@MainActivity)

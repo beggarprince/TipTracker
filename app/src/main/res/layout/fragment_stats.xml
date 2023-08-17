@@ -130,7 +130,7 @@
             android:id="@+id/sfnHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toral Hours: "
+            android:text="Total Hours: "
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -163,7 +163,11 @@
             android:layout_height="wrap_content"
             android:text="Update MPG"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

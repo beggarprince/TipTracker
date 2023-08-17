@@ -24,10 +24,14 @@
             android:id="@+id/setDateRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SetDateRange"
+            android:text="Set Date Range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dateRange" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_dateRange"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecView"

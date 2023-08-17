@@ -12,5 +12,5 @@ data class Trip(
     var hours: Float,
     var gasprice: Float,
     @PrimaryKey(autoGenerate = true)
-    val id: Int?=null
+    val id: Long?=null
 )

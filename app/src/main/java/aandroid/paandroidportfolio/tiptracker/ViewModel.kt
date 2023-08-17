@@ -51,7 +51,7 @@ class ViewModel : ViewModel(), RoomDelete {
             //manually set the trip id
             //Otherwise the id isn't set for some reason, and if you delete a newly created trip it comes back up when you launch it
             //trips not created in a previous run are deletable with no bugs
-            val tripwithid = trip.copy(id = daoReference?.insert(trip)?.toInt())
+            val tripwithid = trip.copy(id = daoReference?.insert(trip))
             tripList.add(tripwithid)
             statsForNerds(tripList)
         }
@@ -114,6 +114,7 @@ class ViewModel : ViewModel(), RoomDelete {
         //calc hourly and net
         sfnHourlyRate = (sfnTotalMoney - sfnGasExpenses) / sfnHours
         sfnNetMoney = sfnTotalMoney - sfnGasExpenses
+
         Log.d(TAG, "Hourly: " + sfnHourlyRate.toString())
 
         Log.d(TAG, "Gas Expenses: " + sfnGasExpenses.toString())

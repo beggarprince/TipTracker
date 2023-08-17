@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
             .findViewById<RecyclerView>(R.id.homeRecView)
         val adapter = TripAdapter(sharedViewModel.tripList,
         sharedViewModel )
+
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(this.context)
 

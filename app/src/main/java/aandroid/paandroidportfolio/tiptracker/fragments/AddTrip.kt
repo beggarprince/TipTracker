@@ -97,6 +97,7 @@ class AddTrip : Fragment() {
                 ).show()
             }
 
+
         }
 
         return rootview

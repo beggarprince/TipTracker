@@ -138,7 +138,11 @@
             android:layout_height="wrap_content"
             android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gasexpense" />
+            app:layout_constraintTop_toBottomOf="@+id/text_gasexpense"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

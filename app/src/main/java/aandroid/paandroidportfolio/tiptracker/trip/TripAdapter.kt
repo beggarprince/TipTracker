@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
+import java.text.DecimalFormat
 
 class TripAdapter(private var tripList: MutableList<Trip>,
                   private val deleteTripListener : RoomDelete) :
@@ -46,16 +47,19 @@ class TripAdapter(private var tripList: MutableList<Trip>,
         mpg = newMpg
         notifyDataSetChanged()
     }
-
+    private fun formatToTwoDecimals(number: Float): String {
+        val df = DecimalFormat("0.00")
+        return df.format(number)
+    }
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val currentTrip = tripList[position]
         holder.itemView.apply{
-            findViewById<TextView>(R.id.text_distance).text = currentTrip.mileage.toString()
-            findViewById<TextView>(R.id.text_money_amount).text = currentTrip.money.toString()
-            findViewById<TextView>(R.id.text_hours).text = currentTrip.hours.toString()
-            findViewById<TextView>(R.id.text_date).text = currentTrip.date.toString()
-            findViewById<TextView>(R.id.gas_price).text = currentTrip.gasprice.toString()
-            findViewById<TextView>(R.id.gas_expense).text = (currentTrip.mileage / mpg * currentTrip.gasprice).toString()
+            findViewById<TextView>(R.id.text_distance).text = formatToTwoDecimals(currentTrip.mileage)
+            findViewById<TextView>(R.id.text_money_amount).text = formatToTwoDecimals(currentTrip.money)
+            findViewById<TextView>(R.id.text_hours).text = formatToTwoDecimals(currentTrip.hours)
+            findViewById<TextView>(R.id.text_date).text = currentTrip.date
+            findViewById<TextView>(R.id.gas_price).text = formatToTwoDecimals(currentTrip.gasprice)
+            findViewById<TextView>(R.id.gas_expense).text = formatToTwoDecimals(currentTrip.mileage / mpg * currentTrip.gasprice)
 
             val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
             deleteButton.setOnClickListener{

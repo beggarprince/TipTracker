@@ -15,6 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Amount Earned"
+            android:gravity="center"
+            android:minWidth="128dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_add_trip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Miles Driven"
+            android:gravity="center"
+            android:minWidth="128dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_amount_earned" />
@@ -35,6 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Hours"
+            android:gravity="center"
+            android:minWidth="128dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_miles_driven" />
@@ -43,6 +49,8 @@
             android:id="@+id/et_price_per_gallon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="128dp"
             android:hint="Gas Price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +73,11 @@
             android:id="@+id/btn_dateOverride"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateOverride" />
+            app:layout_constraintTop_toBottomOf="@id/dateOverride"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
 
 
         <Button
@@ -75,7 +87,12 @@
             android:text="Add Trip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

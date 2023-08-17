@@ -78,7 +78,7 @@ class StatFragment : Fragment() {
 
         return rootview
     }
-
+//val number2digits:Double = String.format("%.2f", number).toDouble()
     private fun sfnUpdate() {
         sfnMiles.text = "Miles Driven: " + sharedViewModel.sfnMiles.toString()
         sfnHours.text = "Total Hours: " + sharedViewModel.sfnHours.toString()

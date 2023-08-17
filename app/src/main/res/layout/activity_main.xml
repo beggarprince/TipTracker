@@ -14,6 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stats"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/background_color_inverted"
+        android:textColor="@color/background_color_inverted"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -23,6 +27,9 @@
         android:layout_height="wrap_content"
         android:text="Tips"
         app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/background_color_inverted"
+        android:textColor="@color/background_color_inverted"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -32,7 +39,12 @@
         android:layout_height="wrap_content"
         android:text="Add Trip"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/background_color_inverted"
+        android:textColor="@color/background_color_inverted"
+
+        />
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"

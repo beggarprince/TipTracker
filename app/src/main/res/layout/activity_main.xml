@@ -5,55 +5,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginVertical="4dp"
-    android:paddingHorizontal="4dp">
+    >
 
-    <Button
-        android:id="@+id/mileageFragButton"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stats"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeColor="@color/background_color_inverted"
-        android:textColor="@color/background_color_inverted"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/tipFragButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tips"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeColor="@color/background_color_inverted"
-        android:textColor="@color/background_color_inverted"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/settingFragButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Trip"
+        android:background="@color/background_color_inverted"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeColor="@color/background_color_inverted"
-        android:textColor="@color/background_color_inverted"
+        app:layout_constraintStart_toStartOf="parent">
 
-        />
+        <Button
+            android:id="@+id/mileageFragButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stats"
+            android:textColor="@color/background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/background_color" />
+
+        <Button
+            android:id="@+id/tipFragButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tips"
+            android:textColor="@color/background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/background_color" />
+
+        <Button
+            android:id="@+id/settingFragButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Trip"
+            android:textColor="@color/background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/background_color"
+
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/mileageFragButton"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/mainFragment"
-        >
+        tools:layout_editor_absoluteX="4dp">
 
     </androidx.fragment.app.FragmentContainerView>
 

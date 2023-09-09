@@ -4,8 +4,10 @@ import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
-import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +17,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
-class AddTrip : Fragment() {
+class AddTripFragment : Fragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
     private val successFullyAddedMessage = "Trip Successfully Added"
@@ -67,8 +66,7 @@ class AddTrip : Fragment() {
     private fun addTrip(trip: Trip) {
         if (trip != null) {
             sharedViewModel.addTrip(trip)
-            val fragmentContext = requireContext()
-            Toast.makeText(fragmentContext, successFullyAddedMessage, duration).show()
+            Toast.makeText(requireContext(), successFullyAddedMessage, duration).show()
         }
     }
 
@@ -91,11 +89,11 @@ class AddTrip : Fragment() {
         dateOverrideButton = rootview.findViewById<Button>(R.id.btn_dateOverride)
 
         dateOverrideButton?.setOnClickListener {
-            //setUpDatePickerDialog()
-            DatePicker.showDatePickerDialog(context, date, "Select Date")
+            DatePicker.showDatePickerDialog(context, "Select Date"){ selectedDate->
+                date.text = selectedDate
+            }
         }
     }
-
 
 }
 

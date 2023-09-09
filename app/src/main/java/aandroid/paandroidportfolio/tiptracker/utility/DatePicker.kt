@@ -2,7 +2,6 @@ package aandroid.paandroidportfolio.tiptracker.utility
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -10,9 +9,9 @@ import java.util.Locale
 object DatePicker {
     fun showDatePickerDialog(
         context: Context?,
-        targetView: TextView,
-        titleOverride: String? = null
-    ) {
+        titleOverride: String? = null,
+        onDateSelected: (String) -> Unit
+    ){
         val calendar = Calendar.getInstance()
         context?.let {
             val datePickerDialog = DatePickerDialog(
@@ -21,7 +20,7 @@ object DatePicker {
                     calendar.set(Calendar.YEAR, year)
                     calendar.set(Calendar.MONTH, month)
                     calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    targetView.setText(
+                     onDateSelected(
                         SimpleDateFormat(
                             "yyyy-MM-dd",
                             Locale.US
@@ -36,5 +35,6 @@ object DatePicker {
             datePickerDialog.setTitle(title)
             datePickerDialog.show()
         }
+
     }
 }

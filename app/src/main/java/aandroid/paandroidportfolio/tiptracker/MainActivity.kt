@@ -2,7 +2,7 @@ package aandroid.paandroidportfolio.tiptracker
 
 import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
-import aandroid.paandroidportfolio.tiptracker.fragments.AddTrip
+import aandroid.paandroidportfolio.tiptracker.fragments.AddTripFragment
 import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
             //Check for MPG saved value, set to 25 if it's missing
             var a: Float = sharedPreferences.getFloat("myFloat", 1f)
             if (a != 1f) {
-                sharedvm.sfnMPG = a
+                sharedvm.savedMPG = a
                 Log.d(TAG,"A is not null")
                 Log.d(TAG,a.toString())
             }
             else {
                 Log.d(TAG,"A is null")
-                sharedvm.sfnMPG = 25f
+                sharedvm.savedMPG = 25f
             }
 
             sharedvm.roomSetup(this@MainActivity)
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.mainFragment, statFragment)
                 .commit()
         }
+
         val tipSwitch = findViewById<Button>(R.id.tipFragButton)
         tipSwitch.setOnClickListener {
             val tipFragment = HomeFragment()
@@ -69,9 +70,10 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.mainFragment, tipFragment)
                 .commit()
         }
+
         val logTrip = findViewById<Button>(R.id.settingFragButton)
         logTrip.setOnClickListener {
-            val logFragment = AddTrip()
+            val logFragment = AddTripFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.mainFragment, logFragment)
                 .commit()

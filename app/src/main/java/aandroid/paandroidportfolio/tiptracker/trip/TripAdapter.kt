@@ -2,6 +2,8 @@ package aandroid.paandroidportfolio.tiptracker.trip
 
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +49,10 @@ class TripAdapter(private var tripList: MutableList<Trip>,
         mpg = newMpg
         notifyDataSetChanged()
     }
-    private fun formatToTwoDecimals(number: Float): String {
-        val df = DecimalFormat("0.00")
-        return df.format(number)
+    private fun formatToTwoDecimals(num: Float): String {
+        val rounded = "%.2f".format(num)
+        //Log.d(ContentValues.TAG, "We are formatting $num to ${rounded.toFloat()}")
+        return rounded
     }
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val currentTrip = tripList[position]

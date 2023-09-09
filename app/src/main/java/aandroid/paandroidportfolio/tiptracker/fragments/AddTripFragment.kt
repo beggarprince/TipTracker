@@ -1,5 +1,6 @@
 package aandroid.paandroidportfolio.tiptracker.fragments
 
+import aandroid.paandroidportfolio.tiptracker.MainActivity
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
@@ -56,7 +57,7 @@ class AddTripFragment : Fragment() {
             val fragmentContext = requireContext()
             Toast.makeText(
                 fragmentContext,
-                "Trip Not Added\nComplete Form Using Numbers",
+                "Fill out form using numbers",
                 duration
             ).show()
             null
@@ -67,6 +68,7 @@ class AddTripFragment : Fragment() {
         if (trip != null) {
             sharedViewModel.addTrip(trip)
             Toast.makeText(requireContext(), successFullyAddedMessage, duration).show()
+            (activity as? MainActivity)?.switchFragment(FragmentType.HOME)
         }
     }
 

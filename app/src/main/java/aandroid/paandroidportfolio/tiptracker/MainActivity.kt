@@ -3,11 +3,13 @@ package aandroid.paandroidportfolio.tiptracker
 import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.AddTripFragment
+import aandroid.paandroidportfolio.tiptracker.fragments.FragmentType
 import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import kotlinx.coroutines.CoroutineScope
@@ -26,59 +28,50 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences
         = getSharedPreferences("savedata", Context.MODE_PRIVATE)
 
-
         //RoomDB must be setup before we fill the recycler view with it's values
         scope.launch {
-
-            //Check for MPG saved value, set to 25 if it's missing
-            var a: Float = sharedPreferences.getFloat("myFloat", 1f)
-            if (a != 1f) {
-                sharedvm.savedMPG = a
-                Log.d(TAG,"A is not null")
-                Log.d(TAG,a.toString())
-            }
-            else {
-                Log.d(TAG,"A is null")
-                sharedvm.savedMPG = 25f
-            }
+                sharedvm.savedMPG = sharedPreferences.getFloat("myFloat", 25f)
+                Log.d(TAG, "Value retrieved: ${sharedvm.savedMPG}")
 
             sharedvm.roomSetup(this@MainActivity)
-
             sharedvm.date = LocalDate.now().toString()
 
-
-            Log.d(TAG, "Home Fragment Initializing")
-            val tipFragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainFragment, tipFragment)
-                .commit()
+            switchFragment(FragmentType.HOME)
         }
 
+        uiBind(findViewById<View>(android.R.id.content).rootView)
+
+    }
+
+    private fun uiBind(rootview: View){
         //Buttons
-        val statSwitch = findViewById<Button>(R.id.mileageFragButton)
-        statSwitch.setOnClickListener {
-            val statFragment = StatFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainFragment, statFragment)
-                .commit()
+        val statTab = findViewById<Button>(R.id.mileageFragButton)
+        val homeTab = findViewById<Button>(R.id.tipFragButton)
+        val addTripTap = findViewById<Button>(R.id.settingFragButton)
+
+        statTab.setOnClickListener {
+            switchFragment(FragmentType.STAT)
         }
 
-        val tipSwitch = findViewById<Button>(R.id.tipFragButton)
-        tipSwitch.setOnClickListener {
-            val tipFragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainFragment, tipFragment)
-                .commit()
+        homeTab.setOnClickListener {
+            switchFragment(FragmentType.HOME)
         }
 
-        val logTrip = findViewById<Button>(R.id.settingFragButton)
-        logTrip.setOnClickListener {
-            val logFragment = AddTripFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainFragment, logFragment)
-                .commit()
+        addTripTap.setOnClickListener {
+            switchFragment(FragmentType.ADDTRIP)
         }
 
+    }
+
+    fun switchFragment(type: FragmentType) {
+        val fragment = when (type) {
+            FragmentType.HOME -> HomeFragment()
+            FragmentType.ADDTRIP -> AddTripFragment()
+            FragmentType.STAT -> StatFragment()
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainFragment, fragment)
+            .commit()
     }
 
 }

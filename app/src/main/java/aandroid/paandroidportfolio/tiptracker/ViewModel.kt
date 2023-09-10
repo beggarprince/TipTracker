@@ -8,7 +8,6 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,8 @@ class ViewModel : ViewModel(), RoomDelete {
     var mpgHomeFragmentCompare: Float = 0.0f //late init not allowed
     var date: String = ""
 
-    suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
+
+    suspend fun initializeRoom(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
         database = Room.databaseBuilder(
             applicationContext,
@@ -34,22 +34,7 @@ class ViewModel : ViewModel(), RoomDelete {
         ).addMigrations(TripDatabase.Companion.MIGRATION_1_2)
             .build()
         daoReference = database?.tripDao()
-        Log.d(TAG, "Room  Init  Setup")
         tripList = getInitialList()
-        Log.d(TAG, "Room Setup Finished")
-    }
-
-    private fun inspectTripList() {
-        tripList.forEachIndexed { index, trip ->
-            trip?.let {
-                Log.d(
-                    "TripListInspector",
-                    "Trip at index $index: Money=${it.money}, Mileage=${it.mileage}, Date=${it.date}, Hours=${it.hours}, GasPrice=${it.gasprice}, ID=${it.id}"
-                )
-            } ?: run {
-                Log.d("TripListInspector", "Trip at index $index is null")
-            }
-        }
     }
 
     fun addTrip(trip: Trip) {
@@ -65,11 +50,10 @@ class ViewModel : ViewModel(), RoomDelete {
         return trips
     }
 
-    suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip> {
+     fun getTripInRange(startDate: String, endDate: String): MutableList<Trip> {
         val trips = daoReference?.getTripsInRange(startDate, endDate) as MutableList<Trip>
         return trips
     }
-
 
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -79,9 +63,7 @@ class ViewModel : ViewModel(), RoomDelete {
                 daoReference?.delete(newtrip)
             } else Log.d(TAG, "TRIP ID IS NULL")
 
-            inspectTripList()
         }
     }
-
 
 }

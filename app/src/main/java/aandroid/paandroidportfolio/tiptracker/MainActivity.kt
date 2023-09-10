@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             sharedViewModel.savedMPG = sharedPreferences.getFloat("myFloat", 25f)
             Log.d(TAG, "Value retrieved: ${sharedViewModel.savedMPG}")
 
-            sharedViewModel.roomSetup(this@MainActivity)
+            sharedViewModel.initializeRoom(this@MainActivity)
             sharedViewModel.date = LocalDate.now().toString()
 
             switchFragment(FragmentType.HOME)
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             switchFragment(FragmentType.HOME)
         }
 
-        binding.settingFragButton.setOnClickListener {
+        binding.addTripFragButton.setOnClickListener {
             switchFragment(FragmentType.ADDTRIP)
         }
     }

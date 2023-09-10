@@ -41,7 +41,7 @@
             app:strokeColor="@color/background_color" />
 
         <Button
-            android:id="@+id/settingFragButton"
+            android:id="@+id/add_trip_frag_button"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

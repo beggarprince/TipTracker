@@ -5,17 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
-import aandroid.paandroidportfolio.tiptracker.databinding.FragmentHomeBinding
 import aandroid.paandroidportfolio.tiptracker.databinding.FragmentStatsBinding
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -46,7 +42,7 @@ class StatFragment : Fragment() {
     ): View? {
         mpg = sharedViewModel.savedMPG
         binding = FragmentStatsBinding.inflate(inflater, container, false)
-        bindUI()
+        setupUIComponents()
 
         return binding.root
     }
@@ -78,7 +74,7 @@ class StatFragment : Fragment() {
         netEarned = amountEarned - gasExpense
     }
 
-    private fun bindUI() = with(binding) {
+    private fun setupUIComponents() = with(binding) {
 
         val sharedPreferences = requireActivity()
             .getSharedPreferences("savedata", Context.MODE_PRIVATE)
@@ -96,8 +92,7 @@ class StatFragment : Fragment() {
             try {
                 mpg = sfnMyMPG.text.toString().toFloat()
                 sharedViewModel.savedMPG = mpg
-                editor.putFloat("myFloat", mpg)
-                editor.apply()
+                updateMpg(editor, mpg)
                 updateStatView()
                 sfnMyMPG.setText(mpg.toString())
             } catch (e: NumberFormatException) {

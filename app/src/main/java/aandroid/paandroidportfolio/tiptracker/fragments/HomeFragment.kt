@@ -1,23 +1,17 @@
 package aandroid.paandroidportfolio.tiptracker.fragments
 
 import aandroid.paandroidportfolio.tiptracker.ViewModel
-import aandroid.paandroidportfolio.tiptracker.R
-import aandroid.paandroidportfolio.tiptracker.databinding.FragmentAddTripBinding
 import aandroid.paandroidportfolio.tiptracker.databinding.FragmentHomeBinding
 import aandroid.paandroidportfolio.tiptracker.trip.TripAdapter
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
-import android.app.DatePickerDialog
-import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +20,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 class HomeFragment : Fragment() {
@@ -44,9 +37,9 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        bindUI()
+        setupUIComponents()
         return binding.root
     }
 
@@ -58,14 +51,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun bindUI() {
-        recView = binding.homeRecView
+    private fun setupUIComponents() = with(binding) {
+        recView =homeRecView
         sharedViewModel.mpgHomeFragmentCompare = sharedViewModel.savedMPG
         adapter = TripAdapter(sharedViewModel.tripList, sharedViewModel, sharedViewModel.mpgHomeFragmentCompare)
         recView.adapter = adapter
-        recView.layoutManager = LinearLayoutManager(this.context)
-        dateTextView = binding.tvDateRange
-        binding.setDateRange.setOnClickListener {
+        recView.layoutManager = LinearLayoutManager(context)
+        dateTextView = tvDateRange
+        setDateRange.setOnClickListener {
             setDate()
         }
     }
@@ -105,14 +98,20 @@ class HomeFragment : Fragment() {
 
     private fun updateWithDateRange() {
         // Get trip data within the date range and update the adapter
-        CoroutineScope(Dispatchers.IO).launch {
-            val deferred = async { sharedViewModel.getTripInRange(startDate, endDate) }
-            sharedViewModel.tripList = deferred.await()
-            withContext(Dispatchers.Main) {
-                adapter.resetData(sharedViewModel.tripList)
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val trips = sharedViewModel.getTripInRange(startDate, endDate)
+                withContext(Dispatchers.Main) {
+                    sharedViewModel.tripList = trips
+                    adapter.resetData(sharedViewModel.tripList)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    // Handle the error appropriately, e.g.:
+                    dateTextView.text = "If this ran, i have died. That or room database is not working, which is unlikely. I'm dead."
+                }
             }
         }
     }
-
 
 }

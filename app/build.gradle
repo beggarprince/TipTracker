@@ -7,6 +7,9 @@ plugins {
 android {
     namespace 'aandroid.paandroidportfolio.tiptracker'
     compileSdk 33
+    viewBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "aandroid.paandroidportfolio.tiptracker"

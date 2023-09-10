@@ -2,9 +2,13 @@ package aandroid.paandroidportfolio.tiptracker.fragments
 
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.R
+import aandroid.paandroidportfolio.tiptracker.databinding.FragmentAddTripBinding
+import aandroid.paandroidportfolio.tiptracker.databinding.FragmentHomeBinding
 import aandroid.paandroidportfolio.tiptracker.trip.TripAdapter
+import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
 import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,112 +31,87 @@ import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-
     private val sharedViewModel: ViewModel by activityViewModels()
     private lateinit var dateTextView: TextView
-    var dateControl = 0
     private var startDate = ""
     private var endDate = ""
+    private lateinit var recView: RecyclerView
+    private lateinit var adapter: TripAdapter
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var tempNewDate: String
+    private lateinit var tempEndDate: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootview = inflater.inflate(
-            R.layout.fragment_home,
-            container, false
-        )
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        bindUI()
+        return binding.root
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if(sharedViewModel.mpgHomeFragmentCompare != sharedViewModel.savedMPG){
+            sharedViewModel.mpgHomeFragmentCompare = sharedViewModel.savedMPG
+            adapter.mpgUpdate(sharedViewModel.mpgHomeFragmentCompare)
+        }
+    }
 
-        val recView = rootview
-            .findViewById<RecyclerView>(R.id.homeRecView)
-        val adapter = TripAdapter(sharedViewModel.tripList,
-        sharedViewModel )
-
+    private fun bindUI() {
+        recView = binding.homeRecView
+        sharedViewModel.mpgHomeFragmentCompare = sharedViewModel.savedMPG
+        adapter = TripAdapter(sharedViewModel.tripList, sharedViewModel, sharedViewModel.mpgHomeFragmentCompare)
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(this.context)
-
-
-        val calendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateLabel(calendar)
+        dateTextView = binding.tvDateRange
+        binding.setDateRange.setOnClickListener {
+            setDate()
         }
+    }
 
+    private fun setDate() {
+        //Bc it's asynchronous android won't wait for datepicker to end, which means we have to nest the datepicker
+        DatePicker.showDatePickerDialog(context, "Select Start Date") { selectedDate ->
+            tempNewDate = selectedDate
+            DatePicker.showDatePickerDialog(context, "Select End Date") { selectedDate ->
+                tempEndDate = selectedDate
 
-        dateTextView = rootview.findViewById<TextView>(R.id.tv_dateRange)
-        val setDateRange = rootview.findViewById<Button>(R.id.setDateRange)
-        dateTextView.text = sharedViewModel.date
-
-        //Creates two calendar dialogues for start and end date
-        setDateRange.setOnClickListener {
-            context?.let { it1 ->
-                val datePickerDialog = DatePickerDialog(
-                    it1,
-                    datePicker,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                )
-                datePickerDialog.setTitle("Choose starting date")
-                datePickerDialog.show()
-                datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
-                    calendar.set(Calendar.YEAR, year)
-                    calendar.set(Calendar.MONTH, month)
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    updateLabel(calendar)
-
-                    // end date
-                    val endDatePickerDialog = DatePickerDialog(
-                        it1, datePicker, calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
-                    )
-                    endDatePickerDialog.setTitle("Choose end date")
-                    endDatePickerDialog.show()
-                    endDatePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
-                        calendar.set(Calendar.YEAR, year)
-                        calendar.set(Calendar.MONTH, month)
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        updateLabel(calendar)
-                        Log.d(ContentValues.TAG, "End date input received")
-                        Log.d(ContentValues.TAG, "Start-end:   " + startDate + "- " + endDate)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            val deferred = async { sharedViewModel.getTripInRange(startDate, endDate) }
-                            sharedViewModel.tripList = deferred.await()
-
-                            withContext(Dispatchers.Main) {
-                                adapter.resetData(sharedViewModel.tripList)
-                                dateControl = 0
-                            }
-                        }
-
-
-                    }
+                if (checkDate(tempNewDate, tempEndDate)) {
+                    dateTextView.text = "$startDate - $endDate"
+                    updateWithDateRange()
+                } else {
+                    //REPLACE WITH TOAST
+                    dateTextView.text = "Invalid Date Range"
                 }
             }
-
         }
-
-        return rootview
     }
-    private fun updateLabel(calendar: Calendar) {
+
+    private fun checkDate(start: String, end: String): Boolean {
         val myformat = "yyyy-MM-dd"
         val sdf = SimpleDateFormat(myformat, Locale.US)
-        //Set the date text to the start
-        if (dateControl == 0) {
-            dateTextView.setText(sdf.format(calendar.time))
-            startDate = sdf.format(calendar.time)
-            dateControl++
-        } else
-            endDate = sdf.format(calendar.time)
+        val startDateObj = sdf.parse(start)
+        val endDateObj = sdf.parse(end)
+        if (startDateObj != null && endDateObj != null) {
+            if (endDateObj.after(startDateObj)) {
+                startDate = start
+                endDate = end
+                return true
+            }
+        }
+        return false
+    }
 
-        dateTextView.text = "$startDate - $endDate"
+    private fun updateWithDateRange() {
+        // Get trip data within the date range and update the adapter
+        CoroutineScope(Dispatchers.IO).launch {
+            val deferred = async { sharedViewModel.getTripInRange(startDate, endDate) }
+            sharedViewModel.tripList = deferred.await()
+            withContext(Dispatchers.Main) {
+                adapter.resetData(sharedViewModel.tripList)
+            }
+        }
     }
 
 

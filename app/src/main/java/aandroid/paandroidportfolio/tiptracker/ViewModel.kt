@@ -8,6 +8,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,10 +23,9 @@ class ViewModel : ViewModel(), RoomDelete {
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
+    var mpgHomeFragmentCompare: Float = 0.0f //late init not allowed
     var date: String = ""
 
-    //Creates an instance of database and dao
-    // and fills the mutablelist tripList with trips.
     suspend fun roomSetup(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
         database = Room.databaseBuilder(
@@ -39,27 +39,34 @@ class ViewModel : ViewModel(), RoomDelete {
         Log.d(TAG, "Room Setup Finished")
     }
 
+    private fun inspectTripList() {
+        tripList.forEachIndexed { index, trip ->
+            trip?.let {
+                Log.d(
+                    "TripListInspector",
+                    "Trip at index $index: Money=${it.money}, Mileage=${it.mileage}, Date=${it.date}, Hours=${it.hours}, GasPrice=${it.gasprice}, ID=${it.id}"
+                )
+            } ?: run {
+                Log.d("TripListInspector", "Trip at index $index is null")
+            }
+        }
+    }
+
     fun addTrip(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
-            //manually set the trip id
-            //Otherwise the id isn't set for some reason, and if you delete a newly created trip it comes back up when you launch it
-            //trips not created in a previous run are deletable with no bugs
-            val tripwithid = trip.copy(id = daoReference?.insert(trip))
-            tripList.add(tripwithid)
-            //statsForNerds(tripList)
+            daoReference?.insert(trip)
+            //TODO: Add appropriate get based on the user's date range or if they have not specified, simply the current week.
+            tripList = getInitialList()
         }
-
     }
 
     private fun getInitialList(): MutableList<Trip> {
         val trips = daoReference?.getLastWeekTrips() as MutableList<Trip>
-        //statsForNerds(trips)
         return trips
     }
 
     suspend fun getTripInRange(startDate: String, endDate: String): MutableList<Trip> {
         val trips = daoReference?.getTripsInRange(startDate, endDate) as MutableList<Trip>
-        //statsForNerds(trips)
         return trips
     }
 
@@ -72,8 +79,7 @@ class ViewModel : ViewModel(), RoomDelete {
                 daoReference?.delete(newtrip)
             } else Log.d(TAG, "TRIP ID IS NULL")
 
-            Log.d(TAG, "Deleting Trip")
-            //statsForNerds(tripList)
+            inspectTripList()
         }
     }
 

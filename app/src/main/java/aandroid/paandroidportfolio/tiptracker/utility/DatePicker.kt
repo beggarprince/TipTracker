@@ -11,7 +11,7 @@ object DatePicker {
         context: Context?,
         titleOverride: String? = null,
         onDateSelected: (String) -> Unit
-    ){
+    ) {
         val calendar = Calendar.getInstance()
         context?.let {
             val datePickerDialog = DatePickerDialog(
@@ -20,7 +20,7 @@ object DatePicker {
                     calendar.set(Calendar.YEAR, year)
                     calendar.set(Calendar.MONTH, month)
                     calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                     onDateSelected(
+                    onDateSelected(
                         SimpleDateFormat(
                             "yyyy-MM-dd",
                             Locale.US

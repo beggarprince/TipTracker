@@ -1,14 +1,11 @@
 package aandroid.paandroidportfolio.tiptracker.fragments
 
 import aandroid.paandroidportfolio.tiptracker.MainActivity
-import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.ViewModel
+import aandroid.paandroidportfolio.tiptracker.databinding.FragmentAddTripBinding
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
-import android.content.ContentValues.TAG
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +21,7 @@ class AddTripFragment : Fragment() {
     private val sharedViewModel: ViewModel by activityViewModels()
     private val successFullyAddedMessage = "Trip Successfully Added"
     private val duration = Toast.LENGTH_SHORT
+    private lateinit var binding: FragmentAddTripBinding
 
     //ui
     private lateinit var editAmount: EditText
@@ -36,14 +34,14 @@ class AddTripFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootview = inflater.inflate(R.layout.fragment_add_trip, container, false)
+    ): View {
 
-        bindUI(rootview)
+        binding = FragmentAddTripBinding.inflate(inflater, container, false)
+        bindUI()
 
-        return rootview
+        return binding.root
     }
+
     private fun createTrip(): Trip? {
         return try {
             Trip(
@@ -65,33 +63,30 @@ class AddTripFragment : Fragment() {
     }
 
     private fun addTrip(trip: Trip) {
-        if (trip != null) {
-            sharedViewModel.addTrip(trip)
-            Toast.makeText(requireContext(), successFullyAddedMessage, duration).show()
-            (activity as? MainActivity)?.switchFragment(FragmentType.HOME)
-        }
+        sharedViewModel.addTrip(trip)
+        //todo: REMOVE THIS ONCE I FIX THE NULL ID BUG
+        Toast.makeText(requireContext(), successFullyAddedMessage, duration).show()
+        (activity as? MainActivity)?.switchFragment(FragmentType.HOME)
     }
 
-    private fun bindUI(rootview: View) {
-        editAmount = rootview.findViewById(R.id.et_amount_earned)
-        mileageAmount = rootview.findViewById(R.id.et_miles_driven)
-        hourAmount = rootview.findViewById(R.id.et_hours_worked)
-        gasprice = rootview.findViewById(R.id.et_price_per_gallon)
-        date = rootview.findViewById<TextView>(R.id.dateOverride)
-
-        val addTripBtn = rootview.findViewById<Button>(R.id.btn_add_trip)
+    private fun bindUI() {
+        editAmount = binding.etAmountEarned
+        mileageAmount = binding.etMilesDriven
+        hourAmount = binding.etHoursWorked
+        gasprice = binding.etPricePerGallon
+        date = binding.dateOverride
         date.text = sharedViewModel.date
 
-        addTripBtn.setOnClickListener {
+        binding.btnAddTrip.setOnClickListener {
             createTrip()?.let { trip ->
                 addTrip(trip)
             }
         }
 
-        dateOverrideButton = rootview.findViewById<Button>(R.id.btn_dateOverride)
+        dateOverrideButton = binding.btnDateOverride
 
         dateOverrideButton?.setOnClickListener {
-            DatePicker.showDatePickerDialog(context, "Select Date"){ selectedDate->
+            DatePicker.showDatePickerDialog(context, "Select Date") { selectedDate ->
                 date.text = selectedDate
             }
         }

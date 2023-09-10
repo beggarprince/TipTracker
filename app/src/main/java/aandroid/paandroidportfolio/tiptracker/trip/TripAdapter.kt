@@ -2,78 +2,75 @@ package aandroid.paandroidportfolio.tiptracker.trip
 
 import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
-import android.content.ContentValues
-import android.util.Log
+import aandroid.paandroidportfolio.tiptracker.databinding.TripBinding
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
-import java.text.DecimalFormat
 
-class TripAdapter(private var tripList: MutableList<Trip>,
-                  private val deleteTripListener : RoomDelete) :
+class TripAdapter(
+    private var recyclerViewTripList: MutableList<Trip>,
+    private val deleteTripListener: RoomDelete,
+    private val initMPG: Float
+) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
-
-    private var mpg : Float=  25f
-
     private val scope = CoroutineScope(Dispatchers.Main)
-    suspend fun deleteItem(trip: Trip){
+    private var mpg = initMPG
+    fun deleteItem(trip: Trip) {
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
-    class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)//laptop test
+
+    inner class TripViewHolder(val binding: TripBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.btnDeleteTrip.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val currentTrip = recyclerViewTripList[position]
+                    scope.launch {
+                        deleteItem(currentTrip)
+                        recyclerViewTripList.removeAt(position)
+                        notifyItemRemoved(position)
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
-        return TripViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.trip,
-                parent,
-                false
-            )
-        )
+        val binding = TripBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TripViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return tripList.size
+        return recyclerViewTripList.size
     }
-    fun resetData(newList: MutableList<Trip>){
-        tripList = newList
+
+    fun resetData(newList: MutableList<Trip>) {
+        recyclerViewTripList = newList
         notifyDataSetChanged()
     }
-    fun setMPG(newMpg: Float){
+    fun mpgUpdate(newMpg: Float){
         mpg = newMpg
         notifyDataSetChanged()
     }
+
     private fun formatToTwoDecimals(num: Float): String {
         val rounded = "%.2f".format(num)
-        //Log.d(ContentValues.TAG, "We are formatting $num to ${rounded.toFloat()}")
         return rounded
     }
-    override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
-        val currentTrip = tripList[position]
-        holder.itemView.apply{
-            findViewById<TextView>(R.id.text_distance).text = formatToTwoDecimals(currentTrip.mileage)
-            findViewById<TextView>(R.id.text_money_amount).text = formatToTwoDecimals(currentTrip.money)
-            findViewById<TextView>(R.id.text_hours).text = formatToTwoDecimals(currentTrip.hours)
-            findViewById<TextView>(R.id.text_date).text = currentTrip.date
-            findViewById<TextView>(R.id.gas_price).text = formatToTwoDecimals(currentTrip.gasprice)
-            findViewById<TextView>(R.id.gas_expense).text = formatToTwoDecimals(currentTrip.mileage / mpg * currentTrip.gasprice)
 
-            val deleteButton = findViewById<Button>(R.id.btn_delete_trip)
-            deleteButton.setOnClickListener{
-                scope.launch {
-                    deleteItem(currentTrip)
-                    //Update view
-                    tripList.remove(currentTrip)
-                    //Should probably update
-                    notifyItemRemoved(position)
-                }
-            }
+    override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
+        val currentTrip = recyclerViewTripList[position]
+        holder.binding.apply {
+            textDistance.text = formatToTwoDecimals(currentTrip.mileage)
+            textMoneyAmount.text = formatToTwoDecimals(currentTrip.money)
+            textHours.text = formatToTwoDecimals(currentTrip.hours)
+            textDate.text = currentTrip.date
+            gasPrice.text = formatToTwoDecimals(currentTrip.gasprice)
+            gasExpense.text = formatToTwoDecimals(currentTrip.mileage / mpg * currentTrip.gasprice)
         }
     }
 

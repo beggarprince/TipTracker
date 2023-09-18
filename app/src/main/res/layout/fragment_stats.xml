@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.StatFragment"
+
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:background="@color/background_color"
         >
 
 
@@ -159,15 +161,14 @@
 
         <Button
             android:id="@+id/changeMPG"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update MPG"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/background_color_inverted"
             android:textColor="@color/background_color_inverted"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/background_color_inverted" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

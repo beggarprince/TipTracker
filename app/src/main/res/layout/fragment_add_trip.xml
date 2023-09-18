@@ -4,20 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddTripFragment">
+    tools:context=".fragments.AddTripFragment"
+
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        >
 
         <EditText
             android:id="@+id/et_amount_earned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Amount Earned"
             android:gravity="center"
+            android:hint="Amount Earned"
             android:minWidth="128dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_add_trip"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/et_hours_worked" />
 
         <TextView
-            android:id="@+id/dateOverride"
+            android:id="@+id/currDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date override"
@@ -66,33 +70,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_price_per_gallon" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Date"
-            android:id="@+id/btn_dateOverride"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateOverride"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/background_color_inverted"
-            android:textColor="@color/background_color_inverted"
-            />
 
-
-        <Button
-            android:id="@+id/btn_add_trip"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Trip"
+            android:orientation="horizontal"
+            android:paddingVertical="4dp"
+            android:weightSum="5"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/background_color_inverted"
-            android:textColor="@color/background_color_inverted"
+            tools:layout_editor_absoluteX="49dp">
 
-            />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight=".5" />
+
+            <Button
+                android:id="@+id/btn_add_trip"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Add Trip"
+                android:textColor="@color/background_color_inverted"
+                app:strokeColor="@color/background_color_inverted"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_dateOverride"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Date"
+                android:textColor="@color/background_color_inverted"
+                app:strokeColor="@color/background_color_inverted" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight=".5" />
+
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

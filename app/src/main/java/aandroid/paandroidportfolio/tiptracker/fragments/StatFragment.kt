@@ -56,7 +56,10 @@ class StatFragment : Fragment() {
         tvNetEarned.text = "Net Earning: $netEarned"
         tvHourlyRate.text = "Hourly Rate: $hourlyRate"
     }
-
+    private fun formatToTwoDecimals(num: Float): String {
+        val rounded = "%.2f".format(num)
+        return rounded
+    }
     private fun calculateStats(list: MutableList<Trip>) {
         hours = 0f
         mileage = 0f
@@ -68,9 +71,11 @@ class StatFragment : Fragment() {
             mileage += l.mileage
             amountEarned += l.money
         }
-        gasExpense = mileage / mpg * gasPrice
+        gasExpense = formatToTwoDecimals(mileage / mpg * gasPrice).toFloat()
+
         Log.d(TAG, "Gas Expenses = $mileage / $mpg * $gasPrice = $gasExpense")
-        hourlyRate = (amountEarned - gasExpense) / hours
+        hourlyRate = formatToTwoDecimals((amountEarned - gasExpense) / hours).toFloat()
+
         netEarned = amountEarned - gasExpense
     }
 

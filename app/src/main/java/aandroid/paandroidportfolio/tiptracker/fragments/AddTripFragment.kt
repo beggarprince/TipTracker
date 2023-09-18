@@ -29,7 +29,6 @@ class AddTripFragment : Fragment() {
     private lateinit var hourAmount: EditText
     private lateinit var gasPrice: EditText
     private lateinit var date: TextView
-    private lateinit var dateOverrideButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +71,7 @@ class AddTripFragment : Fragment() {
         mileageAmount = etMilesDriven
         hourAmount = etHoursWorked
         gasPrice = etPricePerGallon
-        date = dateOverride
+        date = currDate
         date.text = sharedViewModel.date
 
         btnAddTrip.setOnClickListener {

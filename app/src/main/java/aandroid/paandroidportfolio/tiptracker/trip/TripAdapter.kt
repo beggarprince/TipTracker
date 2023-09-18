@@ -1,11 +1,9 @@
 package aandroid.paandroidportfolio.tiptracker.trip
 
-import aandroid.paandroidportfolio.tiptracker.R
 import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
 import aandroid.paandroidportfolio.tiptracker.databinding.TripBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

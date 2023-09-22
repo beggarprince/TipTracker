@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,16 +54,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uiBind() {
-        binding.mileageFragButton.setOnClickListener {
-            switchFragment(FragmentType.STAT)
-        }
-
-        binding.tipFragButton.setOnClickListener {
-            switchFragment(FragmentType.HOME)
-        }
-
-        binding.addTripFragButton.setOnClickListener {
-            switchFragment(FragmentType.ADDTRIP)
+        val bottomNavBar: BottomNavigationView = binding.bottomNavigation
+        bottomNavBar.setOnItemSelectedListener{ item ->
+            when(item.itemId){
+                R.id.tipsTab -> {
+                    switchFragment(FragmentType.HOME)
+                    true
+                }
+                R.id.addTab -> {
+                    switchFragment(FragmentType.ADDTRIP)
+                    true
+                }
+                R.id.statTab -> {
+                    switchFragment(FragmentType.STAT)
+                    true
+                }
+                else -> false
+            }
         }
     }
 

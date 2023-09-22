@@ -104,7 +104,7 @@ class StatFragment : Fragment() {
                 Toast.makeText(
                     requireContext(),
                     "MPG Not Updated",
-                    duration
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         }

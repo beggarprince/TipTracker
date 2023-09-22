@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/statTab"
+        android:title="STATS" />
+
+    <item
+        android:id="@+id/tipsTab"
+        android:title="TIPS" />
+
+    <item
+        android:id="@+id/addTab"
+        android:title="ADD TRIP" />
+</menu>

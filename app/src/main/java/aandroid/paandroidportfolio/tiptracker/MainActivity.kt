@@ -2,6 +2,8 @@ package aandroid.paandroidportfolio.tiptracker
 
 import aandroid.paandroidportfolio.tiptracker.databinding.ActivityMainBinding
 import aandroid.paandroidportfolio.tiptracker.fragments.AddTripFragment
+import aandroid.paandroidportfolio.tiptracker.utility.getCurrentMonday
+import aandroid.paandroidportfolio.tiptracker.utility.getCurrentSunday
 import aandroid.paandroidportfolio.tiptracker.fragments.FragmentType
 import aandroid.paandroidportfolio.tiptracker.fragments.HomeFragment
 import aandroid.paandroidportfolio.tiptracker.fragments.StatFragment
@@ -15,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.util.Calendar
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,10 +32,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //TODO: Change savedata to a more appropriate name
         val sharedPreferences = getSharedPreferences("savedata", Context.MODE_PRIVATE)
 
         //RoomDB must be setup before we fill the recycler view with it's values
         scope.launch {
+            sharedViewModel.startDate = Calendar.getInstance().getCurrentMonday()
+            sharedViewModel.endDate = Calendar.getInstance().getCurrentSunday()
+
             sharedViewModel.savedMPG = sharedPreferences.getFloat("myFloat", 25f)
             Log.d(TAG, "Value retrieved: ${sharedViewModel.savedMPG}")
 

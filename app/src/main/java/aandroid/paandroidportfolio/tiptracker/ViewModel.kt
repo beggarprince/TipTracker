@@ -22,10 +22,9 @@ class ViewModel : ViewModel(), RoomDelete {
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
-    var mpgHomeFragmentCompare: Float = 0.0f //late init not allowed
     var date: String = ""
-
-
+    var startDate: String =""
+    var endDate: String = ""
     suspend fun initializeRoom(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
         database = Room.databaseBuilder(
@@ -34,13 +33,12 @@ class ViewModel : ViewModel(), RoomDelete {
         ).addMigrations(TripDatabase.Companion.MIGRATION_1_2)
             .build()
         daoReference = database?.tripDao()
-        tripList = getInitialList()
+        tripList = getTripInRange(startDate,endDate)
     }
 
     fun addTrip(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
             daoReference?.insert(trip)
-            //TODO: Add appropriate get based on the user's date range or if they have not specified, simply the current week.
             tripList = getInitialList()
         }
     }

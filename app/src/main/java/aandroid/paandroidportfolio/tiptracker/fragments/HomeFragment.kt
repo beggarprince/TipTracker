@@ -4,6 +4,7 @@ import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.databinding.FragmentHomeBinding
 import aandroid.paandroidportfolio.tiptracker.trip.TripAdapter
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
+import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,8 +25,6 @@ class HomeFragment : Fragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
     private lateinit var dateTextView: TextView
-    private var startDate = ""
-    private var endDate = ""
     private lateinit var recView: RecyclerView
     private lateinit var adapter: TripAdapter
     private lateinit var binding: FragmentHomeBinding
@@ -39,23 +38,21 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupUIComponents()
         return binding.root
+
     }
 
     override fun onResume() {
         super.onResume()
-        if(sharedViewModel.mpgHomeFragmentCompare != sharedViewModel.savedMPG){
-            sharedViewModel.mpgHomeFragmentCompare = sharedViewModel.savedMPG
-            adapter.mpgUpdate(sharedViewModel.mpgHomeFragmentCompare)
-        }
+        updateWithDateRange()
     }
 
     private fun setupUIComponents() = with(binding) {
         recView =homeRecView
-        sharedViewModel.mpgHomeFragmentCompare = sharedViewModel.savedMPG
-        adapter = TripAdapter(sharedViewModel.tripList, sharedViewModel, sharedViewModel.mpgHomeFragmentCompare)
+        adapter = TripAdapter(sharedViewModel.tripList, sharedViewModel, sharedViewModel.savedMPG)
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(context)
         dateTextView = tvDateRange
+        dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
         setDateRange.setOnClickListener {
             setDate()
         }
@@ -69,7 +66,7 @@ class HomeFragment : Fragment() {
                 tempEndDate = selectedDate
 
                 if (checkDate(tempNewDate, tempEndDate)) {
-                    dateTextView.text = "$startDate - $endDate"
+                    dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
                     updateWithDateRange()
                 } else {
                     //REPLACE WITH TOAST
@@ -86,8 +83,8 @@ class HomeFragment : Fragment() {
         val endDateObj = sdf.parse(end)
         if (startDateObj != null && endDateObj != null) {
             if (endDateObj.after(startDateObj)) {
-                startDate = start
-                endDate = end
+                sharedViewModel.startDate = start
+                sharedViewModel.endDate = end
                 return true
             }
         }
@@ -98,14 +95,18 @@ class HomeFragment : Fragment() {
         // Get trip data within the date range and update the adapter
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val trips = sharedViewModel.getTripInRange(startDate, endDate)
+                val trips = sharedViewModel.getTripInRange(sharedViewModel.startDate, sharedViewModel.endDate)
                 withContext(Dispatchers.Main) {
                     sharedViewModel.tripList = trips
                     adapter.resetData(sharedViewModel.tripList)
                 }
-            } catch (e: Exception) {
+            }catch (e: SQLiteException) {
                 withContext(Dispatchers.Main) {
-                    // Handle the error appropriately, e.g.:
+                    dateTextView.text = "Database error: ${e.message}"
+                }
+            }
+            catch (e: Exception) {
+                withContext(Dispatchers.Main) {
                     dateTextView.text = "If this ran, i have died. That or room database is not working, which is unlikely. I'm dead."
                 }
             }

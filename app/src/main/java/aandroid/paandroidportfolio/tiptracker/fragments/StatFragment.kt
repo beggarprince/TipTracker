@@ -26,7 +26,7 @@ class StatFragment : Fragment() {
     private lateinit var tvGasExpense: TextView
     private lateinit var tvNetEarned: TextView
     private lateinit var tvHourlyRate: TextView
-    private val duration = Toast.LENGTH_SHORT
+    private val duration = 2//Toast.LENGTH_SHORT
     private var hourlyRate: Float = 0.0f
     private var gasExpense: Float = 0.0f
     private var amountEarned: Float = 0.0f
@@ -84,16 +84,16 @@ class StatFragment : Fragment() {
         val sharedPreferences = requireActivity()
             .getSharedPreferences("savedata", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        tvMiles = sfnMiles // how many miles were driven
-        tvHours = sfnHours // how many hours worked
-        tvAmountEarned = sfnTotalEarned // how much money earned
-        tvGasExpense = sfnGasExpenses // gas cost based on miles/mpg * gas price
-        tvNetEarned = sfnNetEarning // total earned - gas expenses
-        tvHourlyRate = sfnHourly // total earned / hours worked
-        val sfnMyMPG = sfnMyMPG // User provided MPG of their car
+        tvMiles = statMiles // how many miles were driven
+        tvHours = statHours // how many hours worked
+        tvAmountEarned = statTotalEarned // how much money earned
+        tvGasExpense = statGasExpense // gas cost based on miles/mpg * gas price
+        tvNetEarned = statNetEarned // total earned - gas expenses
+        tvHourlyRate = statHourly // total earned / hours worked
+        val sfnMyMPG = myMpgEt // User provided MPG of their car
 
         //Button to switch to register fragment
-        changeMPG.setOnClickListener {
+        changeMpgBtn.setOnClickListener {
             try {
                 mpg = sfnMyMPG.text.toString().toFloat()
                 sharedViewModel.savedMPG = mpg

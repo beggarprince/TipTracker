@@ -17,52 +17,52 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/milesDrivenIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
             android:layout_marginStart="56dp"
             android:src="@drawable/newmileage"
-            app:layout_constraintBottom_toTopOf="@+id/imageView5"
+            app:layout_constraintBottom_toTopOf="@+id/totalEarnedIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            app:background="@drawable/stat_card"
+            />
+
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/gasExpenseIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
             android:layout_marginEnd="56dp"
             android:src="@drawable/gas"
-            app:layout_constraintBottom_toTopOf="@+id/imageView5"
+            app:layout_constraintBottom_toTopOf="@+id/totalEarnedIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
-            android:id="@+id/sfnMiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Miles Driven: "
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <TextView
-            android:id="@+id/sfnGasExpenses"
+            android:id="@+id/statGasExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gas Expense: "
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="@+id/gasExpenseIcon"
+            app:layout_constraintStart_toStartOf="@+id/gasExpenseIcon"
+            app:layout_constraintTop_toBottomOf="@+id/gasExpenseIcon"
             />
 
+        <TextView
+            android:id="@+id/statMiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Miles Driven: "
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/milesDrivenIcon"
+            app:layout_constraintStart_toStartOf="@+id/milesDrivenIcon"
+            app:layout_constraintTop_toBottomOf="@+id/milesDrivenIcon" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/totalEarnedIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/netEarnedIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
@@ -84,73 +84,73 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/sfnTotalEarned"
+            android:id="@+id/statTotalEarned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Earned: "
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+            app:layout_constraintEnd_toEndOf="@+id/totalEarnedIcon"
+            app:layout_constraintStart_toStartOf="@+id/totalEarnedIcon"
+            app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon" />
 
         <TextView
-            android:id="@+id/sfnNetEarning"
+            android:id="@+id/statNetEarned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Net Earning: "
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView4"
-            app:layout_constraintStart_toStartOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintEnd_toEndOf="@+id/netEarnedIcon"
+            app:layout_constraintStart_toStartOf="@+id/netEarnedIcon"
+            app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon" />
+
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/totalHoursIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
-            android:layout_marginStart="56dp"
+            android:layout_marginStart="60dp"
             android:src="@drawable/hours"
-            app:layout_constraintBottom_toTopOf="@+id/sfnMyMPG"
+            app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintVertical_bias="0.497" />
-
+            app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon"
+            app:layout_constraintVertical_bias="0.492" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/hourlyRateIcon"
             android:layout_width="@dimen/sfnImageSquare"
             android:layout_height="@dimen/sfnImageSquare"
             android:layout_gravity="center"
             android:layout_marginEnd="56dp"
             android:src="@drawable/hourly"
-            app:layout_constraintBottom_toTopOf="@+id/sfnMyMPG"
+            app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon"
             app:layout_constraintVertical_bias="0.492" />
 
         <TextView
-            android:id="@+id/sfnHours"
+            android:id="@+id/statHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Hours: "
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintEnd_toEndOf="@+id/totalHoursIcon"
+            app:layout_constraintStart_toStartOf="@+id/totalHoursIcon"
+            app:layout_constraintTop_toBottomOf="@+id/totalHoursIcon" />
 
         <TextView
-            android:id="@+id/sfnHourly"
+            android:id="@+id/statHourly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hourly Rate: "
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintEnd_toEndOf="@+id/hourlyRateIcon"
+            app:layout_constraintStart_toStartOf="@+id/hourlyRateIcon"
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRateIcon" />
 
 
         <EditText
-            android:id="@+id/sfnMyMPG"
+            android:id="@+id/myMpgEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Estimated MPG:"
@@ -160,7 +160,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/changeMPG"
+            android:id="@+id/changeMpgBtn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

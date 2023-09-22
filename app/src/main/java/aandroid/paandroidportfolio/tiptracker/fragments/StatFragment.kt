@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.databinding.FragmentStatsBinding
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
+import aandroid.paandroidportfolio.tiptracker.utility.UserPreferences
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
@@ -26,21 +27,20 @@ class StatFragment : Fragment() {
     private lateinit var tvGasExpense: TextView
     private lateinit var tvNetEarned: TextView
     private lateinit var tvHourlyRate: TextView
-    private val duration = 2//Toast.LENGTH_SHORT
     private var hourlyRate: Float = 0.0f
     private var gasExpense: Float = 0.0f
     private var amountEarned: Float = 0.0f
     private var netEarned: Float = 0.0f
-    private var mpg: Float = 25.0f
     private var gasPrice: Float = 3.0f
     private var hours: Float = 0.0f
     private var mileage: Float = 0.0f
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mpg = sharedViewModel.savedMPG
+        userPreferences = UserPreferences.getInstance(requireContext())
         binding = FragmentStatsBinding.inflate(inflater, container, false)
         setupUIComponents()
 
@@ -71,9 +71,9 @@ class StatFragment : Fragment() {
             mileage += l.mileage
             amountEarned += l.money
         }
-        gasExpense = formatToTwoDecimals(mileage / mpg * gasPrice).toFloat()
+        gasExpense = formatToTwoDecimals(mileage / userPreferences.floatMPG * gasPrice).toFloat()
 
-        Log.d(TAG, "Gas Expenses = $mileage / $mpg * $gasPrice = $gasExpense")
+        Log.d(TAG, "Gas Expenses = $mileage / $userPreferences.floatMPG * $gasPrice = $gasExpense")
         hourlyRate = formatToTwoDecimals((amountEarned - gasExpense) / hours).toFloat()
 
         netEarned = amountEarned - gasExpense
@@ -81,9 +81,7 @@ class StatFragment : Fragment() {
 
     private fun setupUIComponents() = with(binding) {
 
-        val sharedPreferences = requireActivity()
-            .getSharedPreferences("savedata", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+
         tvMiles = statMiles // how many miles were driven
         tvHours = statHours // how many hours worked
         tvAmountEarned = statTotalEarned // how much money earned
@@ -92,14 +90,13 @@ class StatFragment : Fragment() {
         tvHourlyRate = statHourly // total earned / hours worked
         val sfnMyMPG = myMpgEt // User provided MPG of their car
 
-        //Button to switch to register fragment
+        //Button to update mpg
         changeMpgBtn.setOnClickListener {
             try {
-                mpg = sfnMyMPG.text.toString().toFloat()
-                sharedViewModel.savedMPG = mpg
-                updateMpg(editor, mpg)
+                userPreferences.floatMPG = sfnMyMPG.text.toString().toFloat()
+                sharedViewModel.savedMPG = userPreferences.floatMPG
                 updateStatView()
-                sfnMyMPG.setText(mpg.toString())
+                sfnMyMPG.setText(userPreferences.floatMPG.toString())
             } catch (e: NumberFormatException) {
                 Toast.makeText(
                     requireContext(),
@@ -109,12 +106,8 @@ class StatFragment : Fragment() {
             }
         }
         updateStatView()
-        sfnMyMPG.setText(mpg.toString())
+        sfnMyMPG.setText(userPreferences.floatMPG.toString())
     }
 
-    private fun updateMpg(editor: SharedPreferences.Editor, mpg: Float) {
-        editor.putFloat("myFloat", mpg)
-        editor.apply()
-    }
 
 }

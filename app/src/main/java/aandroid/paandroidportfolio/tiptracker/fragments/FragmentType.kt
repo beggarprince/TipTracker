@@ -2,6 +2,6 @@ package aandroid.paandroidportfolio.tiptracker.fragments
 
 enum class FragmentType {
     HOME,
-    ADDTRIP,
+    ADD_TRIP,
     STAT,
 }

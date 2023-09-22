@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 class TripAdapter(
     private var recyclerViewTripList: MutableList<Trip>,
     private val deleteTripListener: RoomDelete,
-    private val initMPG: Float
+    //TODO switch to singleton
+    initMPG: Float
 ) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
     private val scope = CoroutineScope(Dispatchers.Main)
@@ -48,10 +49,6 @@ class TripAdapter(
 
     fun resetData(newList: MutableList<Trip>) {
         recyclerViewTripList = newList
-        notifyDataSetChanged()
-    }
-    fun mpgUpdate(newMpg: Float){
-        mpg = newMpg
         notifyDataSetChanged()
     }
 

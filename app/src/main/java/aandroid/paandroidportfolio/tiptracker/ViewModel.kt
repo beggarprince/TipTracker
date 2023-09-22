@@ -22,7 +22,7 @@ class ViewModel : ViewModel(), RoomDelete {
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
-    var date: String = ""
+    var todayDate: String = ""
     var startDate: String =""
     var endDate: String = ""
     suspend fun initializeRoom(applicationContext: Context) = withContext(Dispatchers.IO)
@@ -39,13 +39,7 @@ class ViewModel : ViewModel(), RoomDelete {
     fun addTrip(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
             daoReference?.insert(trip)
-            tripList = getInitialList()
         }
-    }
-
-    private fun getInitialList(): MutableList<Trip> {
-        val trips = daoReference?.getLastWeekTrips() as MutableList<Trip>
-        return trips
     }
 
      fun getTripInRange(startDate: String, endDate: String): MutableList<Trip> {

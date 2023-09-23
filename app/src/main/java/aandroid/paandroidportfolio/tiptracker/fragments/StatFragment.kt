@@ -20,6 +20,8 @@ import androidx.fragment.app.activityViewModels
 class StatFragment : Fragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
+    private lateinit var userPreferences: UserPreferences
+
     private lateinit var binding: FragmentStatsBinding
     private lateinit var tvMiles: TextView
     private lateinit var tvHours: TextView
@@ -27,6 +29,7 @@ class StatFragment : Fragment() {
     private lateinit var tvGasExpense: TextView
     private lateinit var tvNetEarned: TextView
     private lateinit var tvHourlyRate: TextView
+
     private var hourlyRate: Float = 0.0f
     private var gasExpense: Float = 0.0f
     private var amountEarned: Float = 0.0f
@@ -34,7 +37,6 @@ class StatFragment : Fragment() {
     private var gasPrice: Float = 3.0f
     private var hours: Float = 0.0f
     private var mileage: Float = 0.0f
-    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,6 +95,7 @@ class StatFragment : Fragment() {
         //Button to update mpg
         changeMpgBtn.setOnClickListener {
             try {
+                1 / sfnMyMPG.text.toString().toFloat()
                 userPreferences.floatMPG = sfnMyMPG.text.toString().toFloat()
                 sharedViewModel.savedMPG = userPreferences.floatMPG
                 updateStatView()

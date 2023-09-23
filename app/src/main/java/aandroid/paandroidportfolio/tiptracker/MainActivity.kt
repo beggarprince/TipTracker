@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             sharedViewModel.endDate = Calendar.getInstance().getCurrentSunday()
 
             sharedViewModel.savedMPG = userPreferences.floatMPG
-            Log.d(TAG, "Value retrieved: ${sharedViewModel.savedMPG}")
 
             sharedViewModel.initializeRoom(this@MainActivity)
             sharedViewModel.todayDate = LocalDate.now().toString()

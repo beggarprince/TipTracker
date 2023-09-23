@@ -17,7 +17,7 @@ class TripAdapter(
 ) :
     RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
     private val scope = CoroutineScope(Dispatchers.Main)
-    private var mpg = initMPG
+    private val mpg = initMPG
     fun deleteItem(trip: Trip) {
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
@@ -63,7 +63,8 @@ class TripAdapter(
             textDistance.text = formatToTwoDecimals(currentTrip.mileage)
             textMoneyAmount.text = formatToTwoDecimals(currentTrip.money)
             textHours.text = formatToTwoDecimals(currentTrip.hours)
-            textDate.text = currentTrip.date
+            //TODO restyle date. Left Month spelt out, day, then year in the right corner
+            date.text = currentTrip.date
             gasPrice.text = formatToTwoDecimals(currentTrip.gasprice)
             gasExpense.text = formatToTwoDecimals(currentTrip.mileage / mpg * currentTrip.gasprice)
         }

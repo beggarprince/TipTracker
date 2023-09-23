@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,7 +71,7 @@ class HomeFragment : Fragment() {
                     updateWithDateRange()
                 } else {
                     //REPLACE WITH TOAST
-                    dateTextView.text = "Invalid Date Range"
+                    Toast.makeText(context, "Invalid date range", Toast.LENGTH_SHORT).show()
                 }
             }
         }

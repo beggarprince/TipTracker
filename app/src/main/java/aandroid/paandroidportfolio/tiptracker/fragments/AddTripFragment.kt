@@ -16,10 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 
 class AddTripFragment : Fragment() {
+    companion object{
+        const val successFullyAddedMessage = "Trip Successfully Added"
+        const val duration = Toast.LENGTH_SHORT
+
+    }
 
     private val sharedViewModel: ViewModel by activityViewModels()
-    private val successFullyAddedMessage = "Trip Successfully Added"
-    private val duration = Toast.LENGTH_SHORT
     private lateinit var binding: FragmentAddTripBinding
 
     //ui

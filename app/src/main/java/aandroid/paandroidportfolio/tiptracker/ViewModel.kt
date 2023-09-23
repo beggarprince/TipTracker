@@ -49,11 +49,10 @@ class ViewModel : ViewModel(), RoomDelete {
 
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
-
-            val newtrip = trip.id?.let { daoReference?.getTrip(it) }
-            if (newtrip != null) {
-                daoReference?.delete(newtrip)
-            } else Log.d(TAG, "TRIP ID IS NULL")
+            //val newtrip = trip.id?.let { daoReference?.getTrip(it) }
+            //if (newtrip != null) {
+                daoReference?.delete(trip)
+            //} else Log.d(TAG, "TRIP ID IS NULL, NOT DELETED")
 
         }
     }

@@ -4,6 +4,8 @@ import aandroid.paandroidportfolio.tiptracker.ViewModel
 import aandroid.paandroidportfolio.tiptracker.databinding.FragmentHomeBinding
 import aandroid.paandroidportfolio.tiptracker.trip.TripAdapter
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
+import aandroid.paandroidportfolio.tiptracker.utility.getMonthEnd
+import aandroid.paandroidportfolio.tiptracker.utility.getMonthStart
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,10 +22,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class HomeFragment : Fragment() {
 
+    companion object{
+        const val invalidDateRange = "Invalid Date Range"
+    }
     private val sharedViewModel: ViewModel by activityViewModels()
     private lateinit var dateTextView: TextView
     private lateinit var recView: RecyclerView
@@ -55,29 +61,50 @@ class HomeFragment : Fragment() {
         dateTextView = tvDateRange
         dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
         setDateRange.setOnClickListener {
-            setDate()
+            selectDateRange()
+        }
+        setMonthRange.setOnClickListener {
+            selectMonthRange()
         }
     }
 
-    private fun setDate() {
+    private fun selectDateRange() {
         //Bc it's asynchronous android won't wait for datepicker to end, which means we have to nest the datepicker
         DatePicker.showDatePickerDialog(context, "Select Start Date") { selectedDate ->
             tempNewDate = selectedDate
             DatePicker.showDatePickerDialog(context, "Select End Date") { selectedDate ->
                 tempEndDate = selectedDate
 
-                if (checkDate(tempNewDate, tempEndDate)) {
-                    dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
+                if (validateDateRange(tempNewDate, tempEndDate)) {
+                    updateUIDateRange()
                     updateWithDateRange()
                 } else {
-                    //REPLACE WITH TOAST
-                    Toast.makeText(context, "Invalid date range", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, invalidDateRange, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    private fun checkDate(start: String, end: String): Boolean {
+    private fun updateUIDateRange(){
+        dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
+    }
+
+    private fun selectMonthRange(){
+       DatePicker.showDatePickerDialog(requireContext(), "Select Month"){ selectedDate ->
+           tempNewDate = selectedDate
+           tempEndDate = tempNewDate
+           //Now we churn out the month
+           sharedViewModel.startDate = Calendar.getInstance().getMonthStart(tempNewDate)
+           sharedViewModel.endDate = Calendar.getInstance().getMonthEnd(tempEndDate)
+           updateWithDateRange()
+           updateUIDateRange()
+       }
+
+    }
+
+    private fun validateDateRange(start: String, end: String): Boolean {
+        //TODO handle single date ranges
+        //if(start == end)return true
         val myformat = "yyyy-MM-dd"
         val sdf = SimpleDateFormat(myformat, Locale.US)
         val startDateObj = sdf.parse(start)

@@ -15,12 +15,18 @@ fun Calendar.getCurrentSunday(): String {
     return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
 }
 
-fun Calendar.getMonthStart(): String {
+fun Calendar.getMonthStart(dateStr : String): String {
+    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    time = sdf.parse(dateStr) ?: return ""
+
     set(Calendar.DAY_OF_MONTH, 1)
     return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
 }
 
-fun Calendar.getMonthEnd(): String {
+fun Calendar.getMonthEnd(dateStr : String): String {
+    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    time = sdf.parse(dateStr) ?: return ""
+
     set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH))
     return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
 }

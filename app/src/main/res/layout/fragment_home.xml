@@ -33,6 +33,33 @@
             android:textColor="@color/background_color_inverted"
             />
 
+        <Button
+            android:id="@+id/btn_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/setDateRange"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dateRange"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
+
+        <Button
+            android:id="@+id/setMonthRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Month"
+            app:layout_constraintEnd_toStartOf="@+id/setDateRange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/setDateRange"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/background_color_inverted"
+            android:textColor="@color/background_color_inverted"
+            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecView"
             android:layout_width="match_parent"

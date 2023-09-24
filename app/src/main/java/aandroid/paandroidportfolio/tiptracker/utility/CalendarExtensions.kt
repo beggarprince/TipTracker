@@ -14,3 +14,13 @@ fun Calendar.getCurrentSunday(): String {
     set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
     return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
 }
+
+fun Calendar.getMonthStart(): String {
+    set(Calendar.DAY_OF_MONTH, 1)
+    return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
+}
+
+fun Calendar.getMonthEnd(): String {
+    set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH))
+    return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(time)
+}

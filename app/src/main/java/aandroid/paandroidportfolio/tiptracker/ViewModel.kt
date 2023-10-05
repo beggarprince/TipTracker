@@ -13,10 +13,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 
 class ViewModel : ViewModel(), RoomDelete {
-
+    operator fun <T> List<T>.component6() = get(5)
     var savedMPG: Float = 25f
     var tripList: MutableList<Trip> = mutableListOf<Trip>()
 
@@ -47,6 +48,11 @@ class ViewModel : ViewModel(), RoomDelete {
         return trips
     }
 
+    fun getAllTrips() : MutableList<Trip>{
+        val trips = daoReference?.getAll() as MutableList<Trip>
+        return trips
+    }
+
     override fun deleteTripFromRoomDatabase(trip: Trip) {
         CoroutineScope(Dispatchers.IO).launch {
             val newtrip = trip.id?.let { daoReference?.getTrip(it) }
@@ -54,6 +60,37 @@ class ViewModel : ViewModel(), RoomDelete {
                 daoReference?.delete(trip)
             } else Log.d(TAG, "TRIP ID IS NULL, NOT DELETED")
 
+        }
+    }
+    fun toCsv(trip: Trip): String {
+        return """"${trip.money}","${trip.mileage}","${trip.date}","${trip.hours}","${trip.gasprice}""""
+    }
+    fun toTrip(csv: String): Trip {
+        val (money, mileage, date  , hours, gasprice) = csv.split(',', ignoreCase = false, limit = 5)
+        return Trip(
+            money.toFloat(), mileage.toFloat(), date, hours.toFloat(), gasprice.toFloat()
+        )
+    }
+
+    //Csv would look like { money, mileage, date, hours, gasprice,
+    suspend fun populateRoomWithCsv(inputStream: File) = withContext(Dispatchers.IO) {
+        val reader = inputStream.bufferedReader()
+        try {
+            var header = reader.readLine()
+            while (header != null) {
+                toTrip(header)
+                header = reader.readLine()
+            }
+        } finally {
+            reader.close()
+        }
+    }
+
+    suspend fun populateCsvWithRoom(outputStream : File) = withContext(Dispatchers.IO){
+        val tripCopy = getAllTrips()
+        for(trip in tripCopy){
+            val csv = toCsv(trip)
+            //Add to the csv
         }
     }
 

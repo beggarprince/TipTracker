@@ -65,7 +65,7 @@ class AddTripFragment : Fragment() {
     private fun addTrip(trip: Trip) {
         sharedViewModel.addTrip(trip)
         Toast.makeText(requireContext(), successFullyAddedMessage, duration).show()
-        (activity as? MainActivity)?.switchFragment(FragmentType.HOME)
+        //(activity as? MainActivity)?.switchFragment(FragmentType.HOME)
     }
 
     private fun setupUIComponents() = with(binding) {

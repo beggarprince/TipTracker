@@ -75,7 +75,7 @@ class StatFragment : Fragment() {
         }
         gasExpense = formatToTwoDecimals(mileage / userPreferences.floatMPG * gasPrice).toFloat()
 
-        Log.d(TAG, "Gas Expenses = $mileage / $userPreferences.floatMPG * $gasPrice = $gasExpense")
+        //Log.d(TAG, "Gas Expenses = $mileage / $userPreferences.floatMPG * $gasPrice = $gasExpense")
         hourlyRate = formatToTwoDecimals((amountEarned - gasExpense) / hours).toFloat()
 
         netEarned = amountEarned - gasExpense
@@ -91,6 +91,7 @@ class StatFragment : Fragment() {
         tvNetEarned = statNetEarned // total earned - gas expenses
         tvHourlyRate = statHourly // total earned / hours worked
         val sfnMyMPG = myMpgEt // User provided MPG of their car
+        statDateRange.text = sharedViewModel.dateRange
 
         //Button to update mpg
         changeMpgBtn.setOnClickListener {

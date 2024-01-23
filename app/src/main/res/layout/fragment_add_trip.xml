@@ -11,8 +11,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
+        android:background="@color/background"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD TRIP"
+            android:textColor="@color/title"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/et_amount_earned"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <EditText
             android:id="@+id/et_amount_earned"
@@ -21,11 +33,16 @@
             android:gravity="center"
             android:hint="Amount Earned"
             android:minWidth="128dp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.322" />
+            app:layout_constraintVertical_bias="0.322"
+            android:textColor="@color/bright_text"
+            android:backgroundTint="@color/form"
+            android:textColorHint="@color/hint"
+            />
 
         <EditText
             android:id="@+id/et_miles_driven"
@@ -34,9 +51,14 @@
             android:hint="Miles Driven"
             android:gravity="center"
             android:minWidth="128dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_amount_earned" />
+            app:layout_constraintTop_toBottomOf="@+id/et_amount_earned"
+            android:textColor="@color/bright_text"
+            android:backgroundTint="@color/form"
+            android:textColorHint="@color/hint"
+            />
 
         <EditText
             android:id="@+id/et_hours_worked"
@@ -45,9 +67,16 @@
             android:hint="Hours"
             android:gravity="center"
             android:minWidth="128dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_miles_driven" />
+            app:layout_constraintTop_toBottomOf="@+id/et_miles_driven"
+
+            android:textColor="@color/bright_text"
+            android:backgroundTint="@color/form"
+
+            android:textColorHint="@color/hint"
+            />
 
         <EditText
             android:id="@+id/et_price_per_gallon"
@@ -55,20 +84,30 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minWidth="128dp"
+            android:textSize="24sp"
             android:hint="Gas Price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_hours_worked" />
+            app:layout_constraintTop_toBottomOf="@+id/et_hours_worked"
+            android:textColor="@color/bright_text"
+
+            android:backgroundTint="@color/form"
+            android:textColorHint="@color/hint"
+            />
 
         <TextView
             android:id="@+id/currDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date override"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_price_per_gallon" />
+            app:layout_constraintTop_toBottomOf="@id/et_price_per_gallon"
+            android:textColor="@color/form"
+            android:backgroundTint="@color/hint"
+            android:textColorHint="@color/hint"
+            />
 
 
         <LinearLayout
@@ -89,12 +128,13 @@
             <Button
                 android:id="@+id/btn_add_trip"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:text="Add Trip"
-                android:textColor="@color/background_color_inverted"
-                app:strokeColor="@color/background_color_inverted"
+                android:textColor="@color/clickable"
+                app:strokeColor="@color/clickable"
+                android:textSize="20sp"
                 />
 
             <View
@@ -105,12 +145,14 @@
             <Button
                 android:id="@+id/btn_dateOverride"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:text="Date"
-                android:textColor="@color/background_color_inverted"
-                app:strokeColor="@color/background_color_inverted" />
+                android:textColor="@color/clickable"
+                app:strokeColor="@color/clickable"
+                android:textSize="20sp"
+                />
 
             <View
                 android:layout_width="0dp"

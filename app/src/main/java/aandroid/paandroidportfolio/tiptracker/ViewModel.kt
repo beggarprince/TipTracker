@@ -26,6 +26,11 @@ class ViewModel : ViewModel(), RoomDelete {
     var todayDate: String = ""
     var startDate: String =""
     var endDate: String = ""
+    var dateRange: String =""
+
+    fun updateDateRange(){
+        dateRange = "${startDate} - ${endDate}"
+    }
     suspend fun initializeRoom(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database
         database = Room.databaseBuilder(

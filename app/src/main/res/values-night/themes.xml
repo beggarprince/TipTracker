@@ -3,5 +3,7 @@
     <style name="Base.Theme.TipTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Color for the status bar (darker variant of the primary color) -->
+        <item name="colorPrimaryDark">@color/foreground</item>
     </style>
 </resources>

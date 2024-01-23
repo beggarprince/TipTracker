@@ -6,15 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".fragments.StatFragment"
 
+    android:background="@color/background"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="@color/background_color"
+        android:background="@color/background"
         >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:id="@+id/statDateRange"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/milesDrivenIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/title"
+            />
 
         <ImageView
             android:id="@+id/milesDrivenIcon"
@@ -27,6 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:background="@drawable/stat_card"
+            app:tint="@color/hint"
             />
 
 
@@ -39,16 +54,20 @@
             android:src="@drawable/gas"
             app:layout_constraintBottom_toTopOf="@+id/totalEarnedIcon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/hint"
+            />
         <TextView
             android:id="@+id/statGasExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gas Expense: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/gasExpenseIcon"
             app:layout_constraintStart_toStartOf="@+id/gasExpenseIcon"
             app:layout_constraintTop_toBottomOf="@+id/gasExpenseIcon"
+            android:textColor="@color/bright_text"
+
             />
 
         <TextView
@@ -56,10 +75,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Miles Driven: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/milesDrivenIcon"
             app:layout_constraintStart_toStartOf="@+id/milesDrivenIcon"
-            app:layout_constraintTop_toBottomOf="@+id/milesDrivenIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/milesDrivenIcon"
+            android:textColor="@color/bright_text"
+
+            />
 
         <ImageView
             android:id="@+id/totalEarnedIcon"
@@ -70,7 +92,10 @@
             android:src="@drawable/moneyearned"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:tint="@color/hint"
+            />
 
         <ImageView
             android:id="@+id/netEarnedIcon"
@@ -81,27 +106,34 @@
             android:src="@drawable/moneyearned"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:tint="@color/hint"
+            />
 
         <TextView
             android:id="@+id/statTotalEarned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Earned: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/totalEarnedIcon"
             app:layout_constraintStart_toStartOf="@+id/totalEarnedIcon"
-            app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon"
+            android:textColor="@color/bright_text"
+            />
 
         <TextView
             android:id="@+id/statNetEarned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Net Earning: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/netEarnedIcon"
             app:layout_constraintStart_toStartOf="@+id/netEarnedIcon"
-            app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon"
+            android:textColor="@color/bright_text"
+            />
 
 
         <ImageView
@@ -114,7 +146,10 @@
             app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon"
-            app:layout_constraintVertical_bias="0.492" />
+            app:layout_constraintVertical_bias="0.492"
+
+            app:tint="@color/hint"
+            />
 
         <ImageView
             android:id="@+id/hourlyRateIcon"
@@ -126,27 +161,34 @@
             app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon"
-            app:layout_constraintVertical_bias="0.492" />
+            app:layout_constraintVertical_bias="0.492"
+
+            app:tint="@color/hint"
+            />
 
         <TextView
             android:id="@+id/statHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Hours: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/totalHoursIcon"
             app:layout_constraintStart_toStartOf="@+id/totalHoursIcon"
-            app:layout_constraintTop_toBottomOf="@+id/totalHoursIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/totalHoursIcon"
+            android:textColor="@color/bright_text"
+            />
 
         <TextView
             android:id="@+id/statHourly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hourly Rate: "
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/hourlyRateIcon"
             app:layout_constraintStart_toStartOf="@+id/hourlyRateIcon"
-            app:layout_constraintTop_toBottomOf="@+id/hourlyRateIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRateIcon"
+            android:textColor="@color/bright_text"
+            />
 
 
         <EditText
@@ -154,10 +196,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Estimated MPG:"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/form"
+            />
 
         <Button
             android:id="@+id/changeMpgBtn"
@@ -165,10 +209,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update MPG"
-            android:textColor="@color/background_color_inverted"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:strokeColor="@color/background_color_inverted" />
+            app:strokeColor="@color/clickable"
+            android:textColor="@color/clickable"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

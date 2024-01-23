@@ -7,7 +7,9 @@
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/foreground"
+    >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -23,7 +25,9 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/date_"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/text_money_amount" />
+            app:layout_constraintEnd_toStartOf="@id/text_money_amount"
+            android:textColor="@color/text"
+            />
 
         <TextView
             android:id="@+id/text_money_amount"
@@ -32,7 +36,9 @@
             android:text="$CASH_MONEY"
             android:textSize="14sp"
             app:layout_constraintTop_toTopOf="@id/money_earned"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/bright_text"
+            />
 
         <TextView
             android:id="@+id/miles_driven"
@@ -43,7 +49,9 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/text_money_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/text_distance" />
+            app:layout_constraintEnd_toStartOf="@id/text_distance"
+            android:textColor="@color/text"
+            />
 
         <TextView
             android:id="@+id/text_distance"
@@ -52,7 +60,10 @@
             android:text="MILES"
             android:textSize="14sp"
             app:layout_constraintTop_toTopOf="@id/miles_driven"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/bright_text"
+
+            />
 
         <TextView
             android:id="@+id/hours_worked"
@@ -63,7 +74,9 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/text_distance"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/text_hours" />
+            app:layout_constraintEnd_toStartOf="@id/text_hours"
+            android:textColor="@color/text"
+            />
 
         <TextView
             android:id="@+id/text_hours"
@@ -72,7 +85,10 @@
             android:text="HOURS"
             android:textSize="14sp"
             app:layout_constraintTop_toTopOf="@id/hours_worked"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/bright_text"
+
+            />
 
         <TextView
             android:id="@+id/date_"
@@ -84,8 +100,9 @@
             app:layout_constraintEnd_toStartOf="@id/text_date"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/parent
-" />
+            app:layout_constraintTop_toBottomOf="@id/parent"
+            android:textColor="@color/title"
+            />
 
         <TextView
             android:id="@+id/text_date"
@@ -94,7 +111,9 @@
             android:text=""
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="@id/date_"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/title"
+            />
 
         <TextView
             android:id="@+id/text_gasprice"
@@ -104,7 +123,9 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hours_worked" />
+            app:layout_constraintTop_toBottomOf="@+id/hours_worked"
+            android:textColor="@color/text"
+            />
 
         <TextView
             android:id="@+id/gas_price"
@@ -113,7 +134,9 @@
             android:text="GAS PRICE $$$$"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_gasprice" />
+            app:layout_constraintTop_toTopOf="@+id/text_gasprice"
+            android:textColor="@color/bright_text"
+            />
 
         <TextView
             android:id="@+id/text_gasexpense"
@@ -123,7 +146,9 @@
             android:text="GAS EXPENSE"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gasprice" />
+            app:layout_constraintTop_toBottomOf="@+id/text_gasprice"
+            android:textColor="@color/text"
+            />
 
         <TextView
             android:id="@+id/gas_expense"
@@ -132,7 +157,10 @@
             android:text="GAS EXPENSE $$$$"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gasprice" />
+            app:layout_constraintTop_toBottomOf="@+id/text_gasprice"
+            android:textColor="@color/bright_text"
+
+            />
 
         <Button
             android:id="@+id/btn_delete_trip"
@@ -142,8 +170,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_gasexpense"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/background_color_inverted"
-            android:textColor="@color/background_color_inverted"
+            app:strokeColor="@color/permanent_action"
+            android:textColor="@color/permanent_action"
             />
 
 

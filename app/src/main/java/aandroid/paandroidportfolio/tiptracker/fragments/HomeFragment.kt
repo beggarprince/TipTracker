@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateWithDateRange()
+        updateTripListWithDateRange()
     }
 
     private fun setupUIComponents() = with(binding) {
@@ -76,8 +76,8 @@ class HomeFragment : Fragment() {
                 tempEndDate = selectedDate
 
                 if (validateDateRange(tempNewDate, tempEndDate)) {
-                    updateUIDateRange()
-                    updateWithDateRange()
+                    updateTitleDate()
+                    updateTripListWithDateRange()
                 } else {
                     Toast.makeText(context, invalidDateRange, Toast.LENGTH_SHORT).show()
                 }
@@ -85,8 +85,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateUIDateRange(){
-        dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
+    private fun updateTitleDate(){
+        sharedViewModel.updateDateRange()
+        dateTextView.text = sharedViewModel.dateRange
     }
 
     private fun selectMonthRange(){
@@ -96,8 +97,8 @@ class HomeFragment : Fragment() {
            //Now we churn out the month
            sharedViewModel.startDate = Calendar.getInstance().getMonthStart(tempNewDate)
            sharedViewModel.endDate = Calendar.getInstance().getMonthEnd(tempEndDate)
-           updateWithDateRange()
-           updateUIDateRange()
+           updateTripListWithDateRange()
+           updateTitleDate()
        }
 
     }
@@ -119,7 +120,7 @@ class HomeFragment : Fragment() {
         return false
     }
 
-    private fun updateWithDateRange() {
+    private fun updateTripListWithDateRange() {
         // Get trip data within the date range and update the adapter
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment"
+    android:background="@color/background"
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,16 +29,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/constraintAppBar"
+                    android:background="@color/background"
                     >
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_good_time"
+                        android:text="Good Evening"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textColor="@color/title"
+                        />
                     <TextView
                         android:id="@+id/tv_dateRange"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Current Date Range"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_good_time"
+                        android:textColor="@color/title"
+                        />
 
                     <Button
                         android:id="@+id/setDateRange"
@@ -48,8 +63,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_dateRange"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        app:strokeColor="@color/background_color_inverted"
-                        android:textColor="@color/background_color_inverted"
+                        app:strokeColor="@color/clickable"
+                        android:textColor="@color/clickable"
                         />
 
                     <Button
@@ -61,8 +76,8 @@
                         app:layout_constraintStart_toEndOf="@+id/setDateRange"
                         app:layout_constraintTop_toBottomOf="@+id/tv_dateRange"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        app:strokeColor="@color/background_color_inverted"
-                        android:textColor="@color/background_color_inverted"
+                        app:strokeColor="@color/clickable"
+                        android:textColor="@color/clickable"
                         />
 
                     <Button
@@ -74,8 +89,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/setDateRange"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        app:strokeColor="@color/background_color_inverted"
-                        android:textColor="@color/background_color_inverted"
+                        app:strokeColor="@color/clickable"
+                        android:textColor="@color/clickable"
+
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,6 +106,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+           android:background="@color/background"
             />
 
 

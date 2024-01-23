@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val sharedViewModel: ViewModel by viewModels()
+    private val sharedViewModel: ViewModel by viewModels()
     private val scope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
             sharedViewModel.initializeRoom(this@MainActivity)
             sharedViewModel.todayDate = LocalDate.now().toString()
+            sharedViewModel.updateDateRange()
 
             switchFragment(FragmentType.HOME)
             binding.bottomNavigation.selectedItemId = R.id.tipsTab
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun switchFragment(type: FragmentType) {
+    private fun switchFragment(type: FragmentType) {
         val fragment = when (type) {
             FragmentType.HOME -> HomeFragment()
             FragmentType.ADD_TRIP -> AddTripFragment()

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
     <item
         android:id="@+id/statTab"
         android:icon="@drawable/stat"
-        android:title="STATS" />
+        android:title="STATS"
+        />
 
     <item
         android:id="@+id/tipsTab"
         android:icon="@drawable/money"
-        android:title="TIPS" />
+        android:title="TIPS"
+        />
 
     <item
         android:id="@+id/addTab"
         android:icon="@drawable/add"
-        android:title="ADD TRIP" />
+        android:title="ADD TRIP"
+        />
 </menu>

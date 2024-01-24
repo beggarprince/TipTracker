@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="DATE"
             android:id="@+id/statDateRange"
-            android:textSize="28sp"
+            android:textSize="@dimen/titlesp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/milesDrivenIcon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gas Expense: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/gasExpenseIcon"
             app:layout_constraintStart_toStartOf="@+id/gasExpenseIcon"
             app:layout_constraintTop_toBottomOf="@+id/gasExpenseIcon"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Miles Driven: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/milesDrivenIcon"
             app:layout_constraintStart_toStartOf="@+id/milesDrivenIcon"
             app:layout_constraintTop_toBottomOf="@+id/milesDrivenIcon"
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Earned: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/totalEarnedIcon"
             app:layout_constraintStart_toStartOf="@+id/totalEarnedIcon"
             app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon"
@@ -128,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Net Earning: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/netEarnedIcon"
             app:layout_constraintStart_toStartOf="@+id/netEarnedIcon"
             app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon"
@@ -143,13 +143,12 @@
             android:layout_gravity="center"
             android:layout_marginStart="60dp"
             android:src="@drawable/hours"
-            app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
+            app:layout_constraintBottom_toTopOf="@+id/changeMpgBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalEarnedIcon"
             app:layout_constraintVertical_bias="0.492"
 
-            app:tint="@color/hint"
-            />
+            app:tint="@color/hint" />
 
         <ImageView
             android:id="@+id/hourlyRateIcon"
@@ -158,20 +157,19 @@
             android:layout_gravity="center"
             android:layout_marginEnd="56dp"
             android:src="@drawable/hourly"
-            app:layout_constraintBottom_toTopOf="@+id/myMpgEt"
+            app:layout_constraintBottom_toTopOf="@+id/changeMpgBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/netEarnedIcon"
             app:layout_constraintVertical_bias="0.492"
 
-            app:tint="@color/hint"
-            />
+            app:tint="@color/hint" />
 
         <TextView
             android:id="@+id/statHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Hours: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/totalHoursIcon"
             app:layout_constraintStart_toStartOf="@+id/totalHoursIcon"
             app:layout_constraintTop_toBottomOf="@+id/totalHoursIcon"
@@ -183,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hourly Rate: "
-            android:textSize="20sp"
+            android:textSize="@dimen/textsp"
             app:layout_constraintEnd_toEndOf="@+id/hourlyRateIcon"
             app:layout_constraintStart_toStartOf="@+id/hourlyRateIcon"
             app:layout_constraintTop_toBottomOf="@+id/hourlyRateIcon"
@@ -196,12 +194,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Estimated MPG:"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/form"
-            />
+            android:textSize="@dimen/textsp"
+            app:layout_constraintBottom_toTopOf="@+id/changeMpgBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/changeMpgBtn"
@@ -209,11 +206,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update MPG"
+            android:textColor="@color/clickable"
+            android:textSize="@dimen/textsp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:strokeColor="@color/clickable"
-            android:textColor="@color/clickable"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/clickable" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

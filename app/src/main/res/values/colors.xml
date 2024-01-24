@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
-    <color name="background">#282A36</color>
-    <color name="foreground">#44475A</color>
-    <color name="text">#F8F8F2</color>
-    <color name="hint">#6272A4</color>
-    <color name="current">#8BE9FD</color>
-    <color name="clickable">#50FA7B</color>
-    <color name="orange">#FFB86C</color>
-    <color name="title">#FF79C6</color>
-    <color name="form">#BD93F9</color>
-    <color name="permanent_action">#FF5555</color>
-    <color name="bright_text">#F1FA8C</color>
-
+    <color name="background">#F0EDEE</color>
+    <color name="foreground">#DADADA</color>
+    <color name="text">#000000</color>
+    <color name="hint">#000000</color>
+    <color name="current">#283593</color>
+    <color name="clickable">#000000</color>
+    <color name="orange">#000000</color>
+    <color name="title">#4556BB</color>
+    <color name="form">#000000</color>
+    <color name="permanent_action">#000000</color>
+    <color name="bright_text">#000000</color>
 </resources>
 
 

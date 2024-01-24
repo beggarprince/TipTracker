@@ -3,4 +3,7 @@
     <dimen   name="sfnImageWidth">48dp</dimen>
     <dimen   name="sfnImageHeight">48dp</dimen>
     <dimen name="sfnImageSquare">80dp</dimen>
+    <dimen name="textsp">16sp</dimen>
+    <dimen name="titlesp">28sp</dimen>
+    <dimen name="subtitle">24sp</dimen>
 </resources>

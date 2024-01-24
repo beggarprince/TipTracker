@@ -1,0 +1,15 @@
+TODO
+    Remove the ugly delete button and use a swipe motion plus a dialog
+    Keep track of deleted trips
+    Settings Screen with
+        Toggle day and night mode
+        Export the database as CSV
+        Import the database as CSV
+        Backup on Firebase to which the user could access this info through all devices
+        Modify cars mpg
+    Home Menu
+        Needs information such as "trips"
+        Filter function needs to be completed
+    Stat menu
+        Show the number of trips in the date range
+        A line graph on top would be nice, and the current further icons below

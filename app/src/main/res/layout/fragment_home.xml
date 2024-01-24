@@ -40,10 +40,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:textColor="@color/title"
+                        android:textSize="@dimen/subtitle"
                         />
                     <TextView
                         android:id="@+id/tv_dateRange"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/titlesp"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

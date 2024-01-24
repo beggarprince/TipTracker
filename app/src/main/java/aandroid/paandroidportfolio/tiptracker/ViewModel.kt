@@ -17,19 +17,32 @@ import java.io.File
 
 
 class ViewModel : ViewModel(), RoomDelete {
-    operator fun <T> List<T>.component6() = get(5)
+    //operator fun <T> List<T>.component6() = get(5)
     var savedMPG: Float = 25f
     var tripList: MutableList<Trip> = mutableListOf<Trip>()
 
     private var database: TripDatabase? = null
     private var daoReference: TripDao? = null
     var todayDate: String = ""
+
+    //DATES used to query roomdb
     var startDate: String =""
     var endDate: String = ""
-    var dateRange: String =""
 
+    //Solely for UI
+    var dateRange: String =""
     fun updateDateRange(){
-        dateRange = "${startDate} - ${endDate}"
+        //Only display year if it is different
+        //convertDateFormat()
+        val startYear = startDate.substring(0, 4)
+        val endYear = endDate.substring(0, 4)
+
+        dateRange = if (startYear == endYear) {
+            "${startDate.substring(5).replace("-", "/")} - ${endDate.substring(5).replace("-", "/")}"
+        } else {
+            "$startDate - $endDate"
+        }
+
     }
     suspend fun initializeRoom(applicationContext: Context) = withContext(Dispatchers.IO)
     {        //Room Database

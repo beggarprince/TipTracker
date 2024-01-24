@@ -64,7 +64,9 @@ class TripAdapter(
             textMoneyAmount.text = formatToTwoDecimals(currentTrip.money)
             textHours.text = formatToTwoDecimals(currentTrip.hours)
             //TODO restyle date. Left Month spelt out, day, then year in the right corner
-            date.text = currentTrip.date
+            date.text = currentTrip.date.substring(5).replace("-", "/")
+            dateYy.text = currentTrip.date.substring(0, 4)
+
             gasPrice.text = formatToTwoDecimals(currentTrip.gasprice)
             gasExpense.text = formatToTwoDecimals(currentTrip.mileage / mpg * currentTrip.gasprice)
         }

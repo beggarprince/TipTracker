@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(context)
         dateTextView = tvDateRange
-        dateTextView.text = "${sharedViewModel.startDate} - ${sharedViewModel.endDate}"
+        dateTextView.text = sharedViewModel.dateRange
         setDateRange.setOnClickListener {
             selectDateRange()
         }

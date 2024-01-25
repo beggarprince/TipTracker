@@ -190,7 +190,7 @@
 
 
         <EditText
-            android:id="@+id/myMpgEt"
+            android:id="@+id/et_my_mpg_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Estimated MPG:"

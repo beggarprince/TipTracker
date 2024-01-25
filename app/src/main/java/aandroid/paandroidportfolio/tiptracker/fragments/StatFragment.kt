@@ -11,11 +11,7 @@ import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import aandroid.paandroidportfolio.tiptracker.utility.UserPreferences
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.SharedPreferences
 import android.text.InputType
-import android.text.InputType.TYPE_CLASS_NUMBER
-import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
@@ -119,7 +115,10 @@ class StatFragment : Fragment() {
         tvGasExpense = statGasExpense // gas cost based on miles/mpg * gas price
         tvNetEarned = statNetEarned // total earned - gas expenses
         tvHourlyRate = statHourly // total earned / hours worked
-        val sfnMyMPG = myMpgEt // User provided MPG of their car
+        val sfnMyMPG = etMyMpgEt // User provided MPG of their car
+        val formattedMPG = formatToTwoDecimals(userPreferences.floatMPG)
+        sfnMyMPG.setText(formattedMPG)
+
         sfnMyMPG.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         statDateRange.text = sharedViewModel.dateRange
 
@@ -127,10 +126,11 @@ class StatFragment : Fragment() {
         changeMpgBtn.setOnClickListener {
             try {
                 1 / sfnMyMPG.text.toString().toFloat()
-                userPreferences.floatMPG = sfnMyMPG.text.toString().toFloat()
+                userPreferences.floatMPG = sfnMyMPG.text.toString().toFloat() //The float will always unformat by removing excess 0s
+
+                sfnMyMPG.setText(formatToTwoDecimals(userPreferences.floatMPG))
                 sharedViewModel.savedMPG = userPreferences.floatMPG
                 updateStatView()
-                sfnMyMPG.setText(formatToTwoDecimals(userPreferences.floatMPG))
             } catch (e: NumberFormatException) {
                 Toast.makeText(
                     requireContext(),
@@ -140,7 +140,6 @@ class StatFragment : Fragment() {
             }
         }
         updateStatView()
-        sfnMyMPG.setText(userPreferences.floatMPG.toString())
     }
 
 

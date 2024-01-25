@@ -4,6 +4,7 @@ import aandroid.paandroidportfolio.tiptracker.Room.RoomDelete
 import aandroid.paandroidportfolio.tiptracker.databinding.TripBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,31 +13,17 @@ import kotlinx.coroutines.launch
 class TripAdapter(
     private var recyclerViewTripList: MutableList<Trip>,
     private val deleteTripListener: RoomDelete,
-    //TODO switch to singleton
     initMPG: Float
-) :
-    RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
+) : RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
+
     private val scope = CoroutineScope(Dispatchers.Main)
     private val mpg = initMPG
+
     fun deleteItem(trip: Trip) {
         deleteTripListener.deleteTripFromRoomDatabase(trip)
     }
 
-    inner class TripViewHolder(val binding: TripBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.btnDeleteTrip.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val currentTrip = recyclerViewTripList[position]
-                    scope.launch {
-                        deleteItem(currentTrip)
-                        recyclerViewTripList.removeAt(position)
-                        notifyItemRemoved(position)
-                    }
-                }
-            }
-        }
-    }
+    inner class TripViewHolder(val binding: TripBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         val binding = TripBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,14 +34,14 @@ class TripAdapter(
         return recyclerViewTripList.size
     }
 
+
     fun resetData(newList: MutableList<Trip>) {
         recyclerViewTripList = newList
         notifyDataSetChanged()
     }
 
     private fun formatToTwoDecimals(num: Float): String {
-        val rounded = "%.2f".format(num)
-        return rounded
+        return "%.2f".format(num)
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
@@ -63,7 +50,6 @@ class TripAdapter(
             textDistance.text = formatToTwoDecimals(currentTrip.mileage)
             textMoneyAmount.text = formatToTwoDecimals(currentTrip.money)
             textHours.text = formatToTwoDecimals(currentTrip.hours)
-            //TODO restyle date. Left Month spelt out, day, then year in the right corner
             date.text = currentTrip.date.substring(5).replace("-", "/")
             dateYy.text = currentTrip.date.substring(0, 4)
 
@@ -72,4 +58,19 @@ class TripAdapter(
         }
     }
 
+    // Swipe to delete functionality
+    val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            scope.launch {
+                deleteItem(recyclerViewTripList[position])
+                recyclerViewTripList.removeAt(position)
+                notifyItemRemoved(position)
+            }
+        }
+    }
 }

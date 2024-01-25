@@ -20,6 +20,7 @@
             android:text="ADD TRIP"
             android:textColor="@color/title"
             android:textSize="@dimen/titlesp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/et_amount_earned"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,8 @@ import aandroid.paandroidportfolio.tiptracker.databinding.FragmentAddTripBinding
 import aandroid.paandroidportfolio.tiptracker.trip.Trip
 import aandroid.paandroidportfolio.tiptracker.utility.DatePicker
 import android.os.Bundle
+import android.text.InputType.TYPE_CLASS_NUMBER
+import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +75,10 @@ class AddTripFragment : Fragment() {
         mileageAmount = etMilesDriven
         hourAmount = etHoursWorked
         gasPrice = etPricePerGallon
+        editAmount.inputType = TYPE_NUMBER_FLAG_DECIMAL or TYPE_CLASS_NUMBER
+        mileageAmount.inputType =  TYPE_NUMBER_FLAG_DECIMAL or TYPE_CLASS_NUMBER
+        hourAmount.inputType =  TYPE_NUMBER_FLAG_DECIMAL or TYPE_CLASS_NUMBER
+        gasPrice.inputType =  TYPE_NUMBER_FLAG_DECIMAL or TYPE_CLASS_NUMBER
         date = currDate
         date.text = sharedViewModel.todayDate
 

@@ -66,7 +66,7 @@ class ViewModel : ViewModel(), RoomDelete {
         return trips
     }
 
-    fun getAllTrips() : MutableList<Trip>{
+    private fun getAllTrips() : MutableList<Trip>{
         val trips = daoReference?.getAll() as MutableList<Trip>
         return trips
     }

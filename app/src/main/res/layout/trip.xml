@@ -14,7 +14,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginBottom="12dp"
     >
         <TextView
             android:id="@+id/money_earned"
@@ -172,19 +175,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_gasprice"
             android:textColor="@color/bright_text"
 
-            />
-
-        <Button
-            android:id="@+id/btn_delete_trip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gasexpense"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/permanent_action"
-            android:textColor="@color/permanent_action"
-            android:textSize="@dimen/textsp"
             />
 
 

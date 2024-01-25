@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
@@ -56,6 +57,7 @@ class HomeFragment : Fragment() {
     private fun setupUIComponents() = with(binding) {
         recView =homeRecView
         adapter = TripAdapter(sharedViewModel.tripList, sharedViewModel, sharedViewModel.savedMPG)
+        ItemTouchHelper(adapter.itemTouchHelperCallback).attachToRecyclerView(recView)
         recView.adapter = adapter
         recView.layoutManager = LinearLayoutManager(context)
         dateTextView = tvDateRange

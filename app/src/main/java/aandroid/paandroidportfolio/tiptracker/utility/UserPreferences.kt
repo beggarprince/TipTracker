@@ -1,5 +1,6 @@
 package aandroid.paandroidportfolio.tiptracker.utility
 
+import android.annotation.SuppressLint
 import android.content.Context
 
 class UserPreferences private constructor(private val context: Context) {
